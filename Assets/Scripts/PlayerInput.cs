@@ -8,7 +8,7 @@ public class PlayerInput : MonoBehaviour
 	void Update ()
 	{
 		Movement ();
-		// Firing ();
+		Firing ();
 	}
 
 	void Movement ()
