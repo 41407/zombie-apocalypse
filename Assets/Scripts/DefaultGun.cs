@@ -30,7 +30,7 @@ public class DefaultGun : MonoBehaviour
 
 	void Fire ()
 	{		
-		fireTimer = 0.05f;
+		fireTimer = 0.16f;
 		ShootBullet (5).SendMessage ("SetDamage", 1);
 	}
 
