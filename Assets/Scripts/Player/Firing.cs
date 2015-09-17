@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DefaultGun : MonoBehaviour
+public class Firing : MonoBehaviour
 {
 	private bool firing = false;
 	private float fireTimer = 0;
-	private bool triggerReleased = true;
+	// private bool triggerReleased = true;
 	public GameObject gunsmoke;
 
 	void Update ()
@@ -19,13 +19,13 @@ public class DefaultGun : MonoBehaviour
 	void StartFiring ()
 	{
 		firing = true;
-		triggerReleased = false;
+	//	triggerReleased = false;
 	}
 
 	void StopFiring ()
 	{
 		firing = false;
-		triggerReleased = true;
+	//	triggerReleased = true;
 	}
 
 	void Fire ()
