@@ -2,6 +2,9 @@
 *.psd
 *.ai
 
+# Sublime local settings
+*.sublime-workspace
+
 [Ll]ibrary/
 [Tt]emp/
 [Oo]bj/
