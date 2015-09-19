@@ -8,12 +8,13 @@ public class SceneController : MonoBehaviour
 	public float nextLevelTimeout;
 	public string nextLevel;
 	private bool playerIsAlive = true;
+	public bool resetScoreOnLevelEnd = false;
 
 	void Update ()
 	{
-		if(!player && playerIsAlive) {
-			Invoke("PlayerDied", 0);
-			Invoke("EndGame", nextLevelTimeout);
+		if (!player && playerIsAlive) {
+			Invoke ("PlayerDied", 0);
+			Invoke ("EndGame", nextLevelTimeout);
 			playerIsAlive = false;
 		}
 		if (Input.GetKeyDown (KeyCode.Alpha1)) {
@@ -21,12 +22,20 @@ public class SceneController : MonoBehaviour
 		}
 	}
 
-	private void PlayerDied() {
-		print("Player died!");
+	private void PlayerDied ()
+	{
+		print ("Player died!");
 	}
 
-	private void EndGame() {
-		print("Next scene.");
-		Application.LoadLevel(nextLevel);
+	private void EndGame ()
+	{
+		print ("Next scene.");
+		if (resetScoreOnLevelEnd) {
+			if (Score.GetScore () > PlayerPrefs.GetInt ("High score")) {
+				PlayerPrefs.SetInt ("High score", Score.GetScore ());
+			}
+			Score.Reset ();
+		}
+		Application.LoadLevel (nextLevel);
 	}
 }
