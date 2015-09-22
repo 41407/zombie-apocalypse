@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SpawnGroup : MonoBehaviour
+public class EnemyGroup : MonoBehaviour
 {
 	public int numberOfEnemies = 0;
 	public bool startSpawning = false;

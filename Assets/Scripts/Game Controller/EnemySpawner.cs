@@ -16,9 +16,14 @@ public class EnemySpawner : MonoBehaviour
 
 	public void Spawn ()
 	{
-		Vector2 groupPosition = Random.insideUnitCircle.normalized * distanceFromPlayer + (Vector2)GetComponent<SceneController> ().player.transform.position;
-		GameObject group = Factory.create.ByReference (enemyGroup, groupPosition, Quaternion.identity);
-		group.SendMessage ("Spawn", numberOfEnemies);
-		numberOfEnemies++;
+		try {
+			Vector2 playerPosition = GetComponent<SceneController> ().player.transform.position;
+			Vector2 groupPosition = Random.insideUnitCircle.normalized * distanceFromPlayer + playerPosition;
+			GameObject group = Factory.create.ByReference (enemyGroup, groupPosition, Quaternion.identity);
+			group.SendMessage ("Spawn", numberOfEnemies);
+			numberOfEnemies++;
+		} catch (MissingReferenceException e) {
+			print ("Exception caught: " + e);
+		}
 	}
 }
