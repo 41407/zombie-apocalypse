@@ -21,6 +21,10 @@ public class Factory : MonoBehaviour
 		}
 	}
 
+	void OnEnable() {
+		ObjectPool.pool.Initialize (enemy, 200);
+	}
+
 	GameObject InitializeParameters (GameObject created)
 	{
 		created.SetActive (true);
