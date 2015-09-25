@@ -12,14 +12,14 @@ public class EnemySpawner : MonoBehaviour
 
 	void OnEnable ()
 	{
-		InvokeRepeating ("Spawn", 0, spawnInterval);
+		InvokeRepeating ("Spawn", spawnInterval, spawnInterval);
 	}
 
 	public void Spawn ()
 	{
 		if (GetComponent<SceneController> ().player) {
 			playerPosition = GetComponent<SceneController> ().player.transform.position;
-			int formation = Random.Range (1, 1);
+			int formation = Random.Range (0, 1);
 			switch (formation) {
 			case 0:
 				Horde ();
