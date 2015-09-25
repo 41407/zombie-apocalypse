@@ -5,9 +5,10 @@ public class EnemySpawner : MonoBehaviour
 {
 
 	public GameObject enemyGroup;
-	public int numberOfEnemies;
+	public int hordeSize;
 	public float spawnInterval = 2.0f;
 	public float distanceFromPlayer = 5.0f;
+	private Vector2 playerPosition;
 
 	void OnEnable ()
 	{
@@ -16,14 +17,37 @@ public class EnemySpawner : MonoBehaviour
 
 	public void Spawn ()
 	{
-		try {
-			Vector2 playerPosition = GetComponent<SceneController> ().player.transform.position;
-			Vector2 groupPosition = Random.insideUnitCircle.normalized * distanceFromPlayer + playerPosition;
-			GameObject group = Factory.create.ByReference (enemyGroup, groupPosition, Quaternion.identity);
-			group.SendMessage ("Spawn", numberOfEnemies);
-			numberOfEnemies++;
-		} catch (MissingReferenceException e) {
-			print ("Exception caught: " + e);
+		if (GetComponent<SceneController> ().player) {
+			playerPosition = GetComponent<SceneController> ().player.transform.position;
+			int formation = Random.Range (1, 1);
+			switch (formation) {
+			case 0:
+				Horde ();
+				break;
+			case 1:
+				Surround ();
+				break;
+			default:
+				break;
+			}
 		}
+	}
+
+	public void Surround ()
+	{
+		Vector2 groupPosition;
+		for (int i = 0; i < Random.Range(10, 50); i++) {
+			groupPosition = Random.insideUnitCircle.normalized * distanceFromPlayer + playerPosition;
+			GameObject group = Factory.create.ByReference (enemyGroup, groupPosition, Quaternion.identity);
+			group.SendMessage ("Spawn", Random.Range (1, 5));
+		}
+	}
+
+	public void Horde ()
+	{
+		Vector2 groupPosition = Random.insideUnitCircle.normalized * distanceFromPlayer + playerPosition;
+		GameObject group = Factory.create.ByReference (enemyGroup, groupPosition, Quaternion.identity);
+		group.SendMessage ("Spawn", hordeSize);
+		hordeSize++;
 	}
 }
