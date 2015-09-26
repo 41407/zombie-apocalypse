@@ -4,7 +4,7 @@ using System.Collections;
 public class TurnTowardsAndFollow : MonoBehaviour
 {
 	public GameObject player;
-	public float turningSpeed;
+	public float turningRate = 0.1f;
 	public float baseMoveSpeed = 300f;
 	public float moveSpeedModifier = 1.0f;
 	public float moveSpeedVariance;
@@ -36,29 +36,15 @@ public class TurnTowardsAndFollow : MonoBehaviour
 		GetComponent<Rigidbody2D> ().AddForce (transform.rotation * Vector2.up * moveSpeed * Time.deltaTime);
 	}
 
-	private float CalculateSpeed() {
+	private float CalculateSpeed ()
+	{
 		return (baseMoveSpeed + randomSpeedModifier) * moveSpeedModifier;
 	}
 
 	private void TurnTowardsPlayer ()
 	{
-		Vector2 heading = player.transform.position - transform.position;
-		float angle = transform.rotation.eulerAngles.z;
-		float angleBetween = Vector2.Angle (Vector2.up, heading);
-		if (heading.x > 0) {
-			angleBetween = 360 - angleBetween;
-		}
-		if (angleBetween - angle > 180) {
-			angleBetween -= 360;	
-		}
-		
-		if (angleBetween - angle < -180) {
-			angleBetween += 360;	
-		}
-		if (angleBetween - angle > 0) {
-			gameObject.transform.Rotate (new Vector3 (0, 0, turningSpeed * Time.deltaTime));
-		} else {
-			gameObject.transform.Rotate (new Vector3 (0, 0, -turningSpeed * Time.deltaTime));
-		}	
+		Vector3 relativeLookDirection = gameObject.transform.position - player.transform.position;
+		float angle = Mathf.Atan2 (relativeLookDirection.y, relativeLookDirection.x) * Mathf.Rad2Deg + 90;
+		transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.AngleAxis (angle, Vector3.forward), turningRate);
 	}
 }
