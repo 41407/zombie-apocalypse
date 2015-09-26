@@ -9,7 +9,7 @@ public class EnemyGroup : MonoBehaviour
 	void Update ()
 	{
 		if (startSpawning) {
-			Factory.create.Enemy (transform.position + (Vector3)Random.insideUnitCircle, Quaternion.identity);
+			Factory.create.SimpleEnemy (transform.position + (Vector3)Random.insideUnitCircle, Quaternion.identity);
 			numberOfEnemies--;
 			if (numberOfEnemies <= 0) {
 				gameObject.SetActive (false);

@@ -4,7 +4,7 @@ using System.Collections;
 public class Factory : MonoBehaviour
 {
 	public GameObject player;
-	public GameObject enemy;
+	public GameObject simpleEnemy;
 	public GameObject playerBullet;
 
 	//Here is a private reference only this class can access
@@ -22,7 +22,7 @@ public class Factory : MonoBehaviour
 	}
 
 	void OnEnable() {
-		ObjectPool.pool.Initialize (enemy, 200);
+		ObjectPool.pool.Initialize (simpleEnemy, 200);
 	}
 
 	GameObject InitializeParameters (GameObject created)
@@ -37,9 +37,9 @@ public class Factory : MonoBehaviour
 		return InitializeParameters (ObjectPool.pool.Pull (gameObject, position, rotation));
 	}
 	
-	public GameObject Enemy (Vector2 position, Quaternion rotation)
+	public GameObject SimpleEnemy (Vector2 position, Quaternion rotation)
 	{
-		return ByReference (enemy, position, rotation);
+		return ByReference (simpleEnemy, position, rotation);
 	}
 
 	public GameObject PlayerBullet (Vector2 position, Quaternion rotation)

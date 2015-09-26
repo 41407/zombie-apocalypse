@@ -39,7 +39,7 @@ public class EnemySpawner : MonoBehaviour
 		for (int i = 0; i < numberOfGroups; i++) {
 			groupPosition = RandomDirection () * Distance () + cameraPosition;
 			for (int j = 0; j < Random.Range (1, enemiesInGroup); j++) {
-				Factory.create.Enemy (RandomDirection () * Random.Range (0, 2.0f) + groupPosition, Quaternion.identity);
+				Factory.create.SimpleEnemy (RandomDirection () * Random.Range (0, 2.0f) + groupPosition, Quaternion.identity);
 			}
 		}
 	}
@@ -48,7 +48,7 @@ public class EnemySpawner : MonoBehaviour
 	{
 		Vector2 groupPosition = RandomDirection () * Distance () + cameraPosition;
 		for (int j = 0; j < hordeSize; j++) {
-			Factory.create.Enemy (RandomDirection () * Random.Range (0, 2.0f) + groupPosition, Quaternion.identity);
+			Factory.create.SimpleEnemy (RandomDirection () * Random.Range (0, 2.0f) + groupPosition, Quaternion.identity);
 		}
 		hordeSize++;
 	}

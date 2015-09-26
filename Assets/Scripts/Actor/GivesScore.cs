@@ -3,10 +3,10 @@ using System.Collections;
 
 public class GivesScore : MonoBehaviour
 {
-		public int scoreOnDeath = 0;
+		public int score = 0;
 
 		void ApplyScoring ()
 		{
-				Score.AddScore (scoreOnDeath);
+				Score.AddScore (score);
 		}
 }
