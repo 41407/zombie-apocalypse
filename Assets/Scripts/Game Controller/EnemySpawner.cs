@@ -3,8 +3,6 @@ using System.Collections;
 
 public class EnemySpawner : MonoBehaviour
 {
-
-	public GameObject enemyGroup;
 	public int hordeSize;
 	public float spawnInterval = 0.5f;
 	public float minimumDistanceFromPlayer = 5.0f;
@@ -49,7 +47,6 @@ public class EnemySpawner : MonoBehaviour
 	public void Horde ()
 	{
 		Vector2 groupPosition = RandomDirection () * Distance () + cameraPosition;
-		GameObject group = Factory.create.ByReference (enemyGroup, groupPosition, Quaternion.identity);
 		for (int j = 0; j < hordeSize; j++) {
 			Factory.create.Enemy (RandomDirection () * Random.Range (0, 2.0f) + groupPosition, Quaternion.identity);
 		}
