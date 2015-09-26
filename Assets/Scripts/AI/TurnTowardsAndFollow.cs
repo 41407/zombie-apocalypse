@@ -10,6 +10,9 @@ public class TurnTowardsAndFollow : MonoBehaviour
 	public float moveSpeedVariance;
 	private float randomSpeedModifier;
 	private float moveSpeed;
+	public float sporadicity = 0.02f;
+	public float sporadicStunLength = 1.0f;
+	public bool stunned = false;
 
 	void SetPlayer (GameObject player)
 	{
@@ -30,10 +33,21 @@ public class TurnTowardsAndFollow : MonoBehaviour
 	
 	void Update ()
 	{
-		if (player) {
-			TurnTowardsPlayer ();
+		if (!stunned) {
+			if (player) {
+				TurnTowardsPlayer ();
+			}
+			GetComponent<Rigidbody2D> ().AddForce (transform.rotation * Vector2.up * moveSpeed * Time.deltaTime);
+			if (Random.value < sporadicity) {
+				stunned = true;
+				Invoke ("RemoveStun", sporadicStunLength);
+			}
 		}
-		GetComponent<Rigidbody2D> ().AddForce (transform.rotation * Vector2.up * moveSpeed * Time.deltaTime);
+	}
+
+	private void RemoveStun ()
+	{
+		stunned = false;
 	}
 
 	private float CalculateSpeed ()
