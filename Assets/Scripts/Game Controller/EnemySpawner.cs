@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class EnemySpawner : MonoBehaviour
 	public float minimumDistanceFromPlayer = 5.0f;
 	public float distanceVariance = 5.0f;
 	private Vector2 cameraPosition;
+	public List<GameObject> enemyTypes;
 
 	void OnEnable ()
 	{
@@ -39,7 +41,7 @@ public class EnemySpawner : MonoBehaviour
 		for (int i = 0; i < numberOfGroups; i++) {
 			groupPosition = RandomDirection () * Distance () + cameraPosition;
 			for (int j = 0; j < Random.Range (1, enemiesInGroup); j++) {
-				Factory.create.SimpleEnemy (RandomDirection () * Random.Range (0, 2.0f) + groupPosition, Quaternion.identity);
+				CreateFromList (RandomDirection () * Random.Range (0, 2.0f) + groupPosition);
 			}
 		}
 	}
@@ -48,12 +50,17 @@ public class EnemySpawner : MonoBehaviour
 	{
 		Vector2 groupPosition = RandomDirection () * Distance () + cameraPosition;
 		for (int j = 0; j < hordeSize; j++) {
-			Factory.create.SimpleEnemy (RandomDirection () * Random.Range (0, 2.0f) + groupPosition, Quaternion.identity);
+			CreateFromList (RandomDirection () * Random.Range (0, 2.0f) + groupPosition);
 		}
 		hordeSize++;
 	}
 
-	static Vector2 RandomDirection ()
+	private void CreateFromList (Vector2 position)
+	{
+		Factory.create.ByReference (enemyTypes [Random.Range (0, enemyTypes.Count)], position, Quaternion.identity);
+	}
+
+	private Vector2 RandomDirection ()
 	{
 		return Random.insideUnitCircle.normalized;
 	}

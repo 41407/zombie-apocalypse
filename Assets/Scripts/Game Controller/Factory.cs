@@ -5,6 +5,7 @@ public class Factory : MonoBehaviour
 {
 	public GameObject player;
 	public GameObject simpleEnemy;
+	public GameObject toughEnemy;
 	public GameObject playerBullet;
 
 	//Here is a private reference only this class can access
@@ -23,6 +24,7 @@ public class Factory : MonoBehaviour
 
 	void OnEnable() {
 		ObjectPool.pool.Initialize (simpleEnemy, 200);
+		ObjectPool.pool.Initialize (toughEnemy, 200);
 	}
 
 	GameObject InitializeParameters (GameObject created)
@@ -38,6 +40,11 @@ public class Factory : MonoBehaviour
 	}
 	
 	public GameObject SimpleEnemy (Vector2 position, Quaternion rotation)
+	{
+		return ByReference (simpleEnemy, position, rotation);
+	}
+	
+	public GameObject ToughEnemy (Vector2 position, Quaternion rotation)
 	{
 		return ByReference (simpleEnemy, position, rotation);
 	}
