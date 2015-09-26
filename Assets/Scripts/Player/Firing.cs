@@ -6,7 +6,8 @@ public class Firing : MonoBehaviour
 	private bool firing = false;
 	private float fireTimer = 0;
 	// private bool triggerReleased = true;
-	public GameObject gunsmoke;
+	public GameObject muzzleFlash;
+	public float muzzleFlashOffset = 1.0f;
 
 	void Update ()
 	{
@@ -19,13 +20,13 @@ public class Firing : MonoBehaviour
 	void StartFiring ()
 	{
 		firing = true;
-	//	triggerReleased = false;
+		//	triggerReleased = false;
 	}
 
 	void StopFiring ()
 	{
 		firing = false;
-	//	triggerReleased = true;
+		//	triggerReleased = true;
 	}
 
 	void Fire ()
@@ -50,8 +51,8 @@ public class Firing : MonoBehaviour
 		GameObject bullet = Factory.create.PlayerBullet (transform.position, rotation);
 		bullet.SendMessage ("SetVelocity", GetComponent<Rigidbody2D> ().velocity);
 		bullet.SendMessage ("SetSpeed", speed);
-		if (gunsmoke) {
-			Factory.create.ByReference (gunsmoke, transform.position, transform.rotation);
+		if (muzzleFlash) {
+			Factory.create.ByReference (muzzleFlash, transform.position + transform.rotation * Vector2.up * muzzleFlashOffset, transform.rotation);
 		}
 		return bullet;
 	}
