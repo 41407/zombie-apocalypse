@@ -5,7 +5,7 @@ public class Firing : MonoBehaviour
 {
 	private bool firing = false;
 	private float fireTimer = 0;
-	// private bool triggerReleased = true;
+	public float rateOfFire = 0.08f;
 	public GameObject muzzleFlash;
 	public float muzzleFlashOffset = 1.0f;
 
@@ -20,18 +20,16 @@ public class Firing : MonoBehaviour
 	void StartFiring ()
 	{
 		firing = true;
-		//	triggerReleased = false;
 	}
 
 	void StopFiring ()
 	{
 		firing = false;
-		//	triggerReleased = true;
 	}
 
 	void Fire ()
 	{		
-		fireTimer = 0.16f;
+		fireTimer = rateOfFire;
 		ShootBullet (5).SendMessage ("SetDamage", 1);
 	}
 
