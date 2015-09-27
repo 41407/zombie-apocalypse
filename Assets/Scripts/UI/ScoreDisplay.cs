@@ -19,7 +19,7 @@ public class ScoreDisplay : MonoBehaviour
 	{
 		int newScore = Score.GetScore ();
 		if (newScore > score) {
-			transform.localScale = transform.localScale + Vector3.one;
+			transform.localScale = transform.localScale + Vector3.one * (newScore - score);
 		}
 		score = newScore;
 	}
