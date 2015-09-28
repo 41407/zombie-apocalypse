@@ -10,7 +10,6 @@ public class OutOfLOSDecay : MonoBehaviour
 		Invoke("Destroy", decayTime);
 	}
 
-
 	void OnBecameVisible ()
 	{
 		CancelInvoke();

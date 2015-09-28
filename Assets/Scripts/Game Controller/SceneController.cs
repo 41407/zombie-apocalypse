@@ -17,9 +17,6 @@ public class SceneController : MonoBehaviour
 			Invoke ("EndGame", nextLevelTimeout);
 			playerIsAlive = false;
 		}
-		if (Input.GetKeyDown (KeyCode.Alpha1)) {
-			Factory.create.SimpleEnemy (new Vector2 (Random.Range (-10, 10), Random.Range (-10, 10)), Quaternion.identity);
-		}
 	}
 
 	private void PlayerDied ()
