@@ -3,33 +3,22 @@ using System.Collections;
 
 public class Firing : MonoBehaviour
 {
-	private bool firing = false;
-	private float fireTimer = 0;
 	public float rateOfFire = 0.08f;
 	public GameObject muzzleFlash;
 	public float muzzleFlashOffset = 1.0f;
 
-	void Update ()
-	{
-		fireTimer -= Time.deltaTime;
-		if (fireTimer <= 0 && firing) {
-			Fire ();
-		}
-	}
-
 	void StartFiring ()
 	{
-		firing = true;
+		InvokeRepeating("Fire", 0, rateOfFire);
 	}
 
 	void StopFiring ()
 	{
-		firing = false;
+		CancelInvoke();
 	}
 
 	void Fire ()
 	{		
-		fireTimer = rateOfFire;
 		ShootBullet (5).SendMessage ("SetDamage", 1);
 	}
 
