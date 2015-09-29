@@ -18,11 +18,11 @@ public class Mouse : MonoBehaviour
 	}
 
 	/**
-		 *  Uses raycasting to find given screen position on a plane perpendicular to the camera
-		 *  in given z coordinate;
-		 * 
-		 *  http://answers.unity3d.com/questions/566519/camerascreentoworldpoint-in-perspective.html
-		 */
+	 *  Uses raycasting to find given screen position on a plane perpendicular to the camera
+	 *  in given z coordinate;
+	 * 
+	 *  http://answers.unity3d.com/questions/566519/camerascreentoworldpoint-in-perspective.html
+	 */
 	private Vector3 GetWorldPositionOnPlane (Vector3 screenPosition, float z)
 	{
 		Ray ray = Camera.main.ScreenPointToRay (screenPosition);
