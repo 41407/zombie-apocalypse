@@ -6,10 +6,11 @@ public class Stalker : MonoBehaviour
 	public float chargeSpeed;
 	public bool onCooldown = false;
 	public float cooldownTime = 2.0f;
+	public string targetTag;
 
-	void OnTriggerStay2D (Collider2D col)
+	void OnTriggerEnter2D (Collider2D col)
 	{
-		if (!onCooldown) {
+		if (!onCooldown && targetTag.Contains (col.tag)) {
 			gameObject.GetComponent<Rigidbody2D> ().AddForce (transform.rotation * Vector2.up * chargeSpeed);
 			onCooldown = true;
 			Invoke ("CancelCooldown", cooldownTime);
