@@ -7,6 +7,7 @@ public class Factory : MonoBehaviour
 	public GameObject simpleEnemy;
 	public GameObject toughEnemy;
 	public GameObject quickEnemy;
+	public GameObject stalkingEnemy;
 	public GameObject playerBullet;
 
 	//Here is a private reference only this class can access
@@ -23,10 +24,12 @@ public class Factory : MonoBehaviour
 		}
 	}
 
-	void OnEnable() {
+	void OnEnable ()
+	{
 		ObjectPool.pool.Initialize (simpleEnemy, 200);
-		ObjectPool.pool.Initialize (toughEnemy, 200);
+		ObjectPool.pool.Initialize (toughEnemy, 100);
 		ObjectPool.pool.Initialize (quickEnemy, 200);
+		ObjectPool.pool.Initialize (stalkingEnemy, 100);
 	}
 
 	GameObject InitializeParameters (GameObject created)
@@ -54,6 +57,11 @@ public class Factory : MonoBehaviour
 	public GameObject QuickEnemy (Vector2 position, Quaternion rotation)
 	{
 		return ByReference (quickEnemy, position, rotation);
+	}
+	
+	public GameObject StalkingEnemy (Vector2 position, Quaternion rotation)
+	{
+		return ByReference (stalkingEnemy, position, rotation);
 	}
 
 	public GameObject PlayerBullet (Vector2 position, Quaternion rotation)
