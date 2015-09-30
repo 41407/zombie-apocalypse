@@ -3,17 +3,17 @@ using System.Collections;
 
 public class LightFade : MonoBehaviour
 {
-	private Light light;
+	private Light lightComponent;
 	public float fadeSpeed;
 
 	void OnEnable ()
 	{
-		light = gameObject.GetComponent<Light> ();
-		light.intensity = 1.00f;
+		lightComponent = gameObject.GetComponent<Light> ();
+		lightComponent.intensity = 1.00f;
 	}
 
 	void Update ()
 	{
-		light.intensity = light.intensity - Time.deltaTime * fadeSpeed;
+		lightComponent.intensity = lightComponent.intensity - Time.deltaTime * fadeSpeed;
 	}
 }
