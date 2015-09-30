@@ -7,7 +7,7 @@ public class EnemySpawner : MonoBehaviour
 	public GameObject player;
 	public int hordeSize;
 	public int hordeSizeExplosiveThreshold = 10;
-	public float hordeExplosiveChance = 0.25f;
+	public float hordeExplosiveChance = 0.5f;
 	public float spawnInterval = 0.5f;
 	public float minimumDistanceFromPlayer = 5.0f;
 	public float distanceVariance = 5.0f;
@@ -21,14 +21,14 @@ public class EnemySpawner : MonoBehaviour
 
 	public void Spawn ()
 	{
+		cameraPosition = Camera.main.transform.position;
 		if (GetComponent<SceneController> ().player) {
-			cameraPosition = Camera.main.transform.position;
 			Arc (PlayerTravelDirection (), Random.Range (1, PlayerDirectionStagnation ()));
-			Formation ();
+			RandomFormation ();
 		}
 	}
 
-	void Formation ()
+	void RandomFormation ()
 	{
 		int formation = Random.Range (0, 10);
 		switch (formation) {
@@ -49,11 +49,13 @@ public class EnemySpawner : MonoBehaviour
 
 	private void Arc (Vector2 direction, int numberOfEnemies)
 	{
-		Vector2 groupPosition = direction * Distance () + cameraPosition;
-		groupPosition = Quaternion.AngleAxis (-numberOfEnemies / 2, Vector3.back) * groupPosition;
-		for (int i = 0; i < numberOfEnemies; i++) {
-			CreateFromList (groupPosition);
-			groupPosition = Quaternion.AngleAxis (1, Vector3.back) * groupPosition;
+		if (!direction.Equals (Vector2.zero)) {
+			Vector2 groupPosition = direction * Distance () + cameraPosition;
+			groupPosition = Quaternion.AngleAxis (-numberOfEnemies / 2, Vector3.back) * groupPosition;
+			for (int i = 0; i < numberOfEnemies; i++) {
+				CreateFromList (groupPosition);
+				groupPosition = Quaternion.AngleAxis (1, Vector3.back) * groupPosition;
+			}
 		}
 	}
 
