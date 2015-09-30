@@ -12,6 +12,7 @@ public class Stalker : MonoBehaviour
 	{
 		if (!onCooldown && targetTag.Contains (col.tag)) {
 			gameObject.GetComponent<Rigidbody2D> ().AddForce (transform.rotation * Vector2.up * chargeSpeed);
+			gameObject.GetComponent<TrailRenderer> ().enabled = true;
 			onCooldown = true;
 			Invoke ("CancelCooldown", cooldownTime);
 		}
@@ -20,5 +21,6 @@ public class Stalker : MonoBehaviour
 	private void CancelCooldown ()
 	{
 		onCooldown = false;
+		gameObject.GetComponent<TrailRenderer> ().enabled = false;
 	}
 }
