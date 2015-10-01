@@ -19,7 +19,7 @@ public class Sack : MonoBehaviour
 	}
  
 	public EnemyAmount[] initialEnemies;
-	public List<EnemyType> sack;
+	private List<EnemyType> sack;
 
 	void OnEnable ()
 	{
