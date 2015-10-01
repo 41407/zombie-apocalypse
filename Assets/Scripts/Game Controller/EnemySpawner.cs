@@ -13,10 +13,26 @@ public class EnemySpawner : MonoBehaviour
 	public float distanceVariance = 5.0f;
 	private Vector2 cameraPosition;
 	public List<GameObject> enemyTypes;
+	private List<EnemyType> enemyPool;
 
 	void OnEnable ()
 	{
+		InitializeEnemyPool ();
 		InvokeRepeating ("Spawn", spawnInterval, spawnInterval);
+	}
+
+	private void InitializeEnemyPool ()
+	{
+		enemyPool = new List<EnemyType>();
+		enemyPool.Add (EnemyType.Simple);
+		enemyPool.Add (EnemyType.Quick);
+		enemyPool.Add (EnemyType.Tough);
+		enemyPool.Add (EnemyType.Stalking);
+	}
+
+	private EnemyType TakeFromPool ()
+	{
+		return enemyPool [Random.Range (0, enemyPool.Count)];
 	}
 
 	public void Spawn ()
@@ -53,7 +69,7 @@ public class EnemySpawner : MonoBehaviour
 			Vector2 groupPosition = direction * Distance () + cameraPosition;
 			groupPosition = Quaternion.AngleAxis (-numberOfEnemies / 2, Vector3.back) * groupPosition;
 			for (int i = 0; i < numberOfEnemies; i++) {
-				CreateFromList (groupPosition);
+				CreateFromPool (groupPosition);
 				groupPosition = Quaternion.AngleAxis (1, Vector3.back) * groupPosition;
 			}
 		}
@@ -65,7 +81,7 @@ public class EnemySpawner : MonoBehaviour
 		for (int i = 0; i < numberOfGroups; i++) {
 			groupPosition = RandomDirection () * Distance () + cameraPosition;
 			for (int j = 0; j < Random.Range (1, enemiesInEachGroup); j++) {
-				CreateFromList (RandomDirection () * Random.Range (0, 2.0f) + groupPosition);
+				CreateFromPool (RandomDirection () * Random.Range (0, 2.0f) + groupPosition);
 			}
 		}
 	}
@@ -77,14 +93,14 @@ public class EnemySpawner : MonoBehaviour
 			Factory.create.ExplosiveEnemy (groupPosition, Quaternion.identity);
 		}
 		for (int j = 0; j < hordeSize; j++) {
-			CreateFromList (RandomDirection () * Random.Range (0, 5.0f) + groupPosition);
+			CreateFromPool (RandomDirection () * Random.Range (0, 5.0f) + groupPosition);
 		}
 		hordeSize++;
 	}
 
-	private void CreateFromList (Vector2 position)
+	private void CreateFromPool (Vector2 position)
 	{
-		Factory.create.ByReference (enemyTypes [Random.Range (0, enemyTypes.Count)], position, Quaternion.identity);
+		Factory.create.ByReference (enemyTypes [(int)TakeFromPool ()], position, Quaternion.identity);
 	}
 
 	private Vector2 RandomDirection ()
