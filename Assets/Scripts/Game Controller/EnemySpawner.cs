@@ -13,26 +13,12 @@ public class EnemySpawner : MonoBehaviour
 	public float distanceVariance = 5.0f;
 	private Vector2 cameraPosition;
 	public List<GameObject> enemyTypes;
-	private List<EnemyType> enemyPool;
+	private Sack enemySack;
 
 	void OnEnable ()
 	{
-		InitializeEnemyPool ();
 		InvokeRepeating ("Spawn", spawnInterval, spawnInterval);
-	}
-
-	private void InitializeEnemyPool ()
-	{
-		enemyPool = new List<EnemyType>();
-		enemyPool.Add (EnemyType.Simple);
-		enemyPool.Add (EnemyType.Quick);
-		enemyPool.Add (EnemyType.Tough);
-		enemyPool.Add (EnemyType.Stalking);
-	}
-
-	private EnemyType TakeFromPool ()
-	{
-		return enemyPool [Random.Range (0, enemyPool.Count)];
+		enemySack = gameObject.GetComponent<Sack> ();
 	}
 
 	public void Spawn ()
@@ -100,7 +86,7 @@ public class EnemySpawner : MonoBehaviour
 
 	private void CreateFromPool (Vector2 position)
 	{
-		Factory.create.ByReference (enemyTypes [(int)TakeFromPool ()], position, Quaternion.identity);
+		Factory.create.ByReference (enemyTypes [(int)enemySack.Pop ()], position, Quaternion.identity);
 	}
 
 	private Vector2 RandomDirection ()
