@@ -55,10 +55,8 @@ public class EnemySpawner : MonoBehaviour
 	{
 		if (!direction.Equals (Vector2.zero)) {
 			Vector2 groupPosition = direction * Distance () + cameraPosition;
-			groupPosition = Quaternion.AngleAxis (-numberOfEnemies / 2, Vector3.back) * groupPosition;
 			for (int i = 0; i < numberOfEnemies; i++) {
-				Spawn (groupPosition);
-				groupPosition = Quaternion.AngleAxis (1, Vector3.back) * groupPosition;
+				Spawn (groupPosition + Random.insideUnitCircle * 2.0f);
 			}
 		}
 	}
@@ -67,7 +65,7 @@ public class EnemySpawner : MonoBehaviour
 	{
 		Vector2 groupPosition;
 		for (int i = 0; i < numberOfGroups; i++) {
-			groupPosition = RandomDirection () * Distance () + cameraPosition;
+			groupPosition = RandomDirection () * Distance (3) + cameraPosition;
 			for (int j = 0; j < Random.Range (1, enemiesInEachGroup); j++) {
 				Spawn (RandomDirection () * Random.Range (0, 2.0f) + groupPosition);
 			}
@@ -76,7 +74,7 @@ public class EnemySpawner : MonoBehaviour
 
 	private void Horde ()
 	{
-		Vector2 groupPosition = RandomDirection () * Distance (5) + cameraPosition;
+		Vector2 groupPosition = PlayerTravelDirection () * Distance (5) + cameraPosition;
 		if (hordeSize > hordeSizeExplosiveThreshold && Random.value <= hordeExplosiveChance) {
 			Factory.create.ExplosiveEnemy (groupPosition, Quaternion.identity);
 		}
