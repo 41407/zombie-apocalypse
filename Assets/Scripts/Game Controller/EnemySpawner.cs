@@ -91,7 +91,11 @@ public class EnemySpawner : MonoBehaviour
 
 	private void Horde ()
 	{
-		Vector2 groupPosition = PlayerTravelDirection () * Distance (5) + cameraPosition;
+		Vector2 direction = PlayerTravelDirection ();
+		if (direction.Equals (Vector2.zero)) {
+			direction = RandomDirection ();
+		}
+		Vector2 groupPosition = direction * Distance (5) + cameraPosition;
 		if (waveNumber > 25 && Random.value <= hordeExplosiveChance) {
 			Factory.create.ExplosiveEnemy (groupPosition, Quaternion.identity);
 		}
