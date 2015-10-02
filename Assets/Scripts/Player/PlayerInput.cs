@@ -4,6 +4,14 @@ using System.Collections;
 public class PlayerInput : MonoBehaviour
 {
 	public float acceleration;
+	public float speedupStartTime = 30.0f;
+	public float speedupIncrement = 1.0f;
+	public float finalAcceleration = 100.0f;
+
+	void OnEnable ()
+	{
+		InvokeRepeating ("Speedup", speedupStartTime, 1.0f);
+	}
 
 	void Update ()
 	{
@@ -24,6 +32,14 @@ public class PlayerInput : MonoBehaviour
 		}
 		if (Input.GetMouseButtonUp (0)) {
 			gameObject.SendMessage ("StopFiring");
+		}
+	}
+
+	void Speedup ()
+	{
+		acceleration += speedupIncrement;
+		if (acceleration > finalAcceleration) {
+			CancelInvoke ();
 		}
 	}
 }
