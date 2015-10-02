@@ -6,8 +6,6 @@ public class EnemySpawner : MonoBehaviour
 {
 	public GameObject player;
 	public int hordeSize;
-	public int hordeSizeExplosiveThreshold = 10;
-	public float hordeExplosiveChance = 0.5f;
 	public float spawnInterval = 0.75f;
 	public float minimumDistanceFromPlayer = 5.0f;
 	public float distanceVariance = 5.0f;
@@ -101,9 +99,6 @@ public class EnemySpawner : MonoBehaviour
 			direction = RandomDirection ();
 		}
 		Vector2 groupPosition = direction * Distance (5) + cameraPosition;
-		if (waveNumber > 25 && Random.value <= hordeExplosiveChance) {
-			Factory.create.ExplosiveEnemy (groupPosition, Quaternion.identity);
-		}
 		bool specialHorde = false;
 		EnemyType specialType = (EnemyType)Random.Range (0, 3);
 		if (waveNumber > 50 & Random.value < 0.25f) {
