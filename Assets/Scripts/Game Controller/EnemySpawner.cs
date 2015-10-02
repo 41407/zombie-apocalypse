@@ -50,19 +50,23 @@ public class EnemySpawner : MonoBehaviour
 			break;
 		case 1:
 			Surround (Random.Range (
-				Mathf.Clamp (waveNumber / 2, 2, 10),
+				Mathf.Clamp (waveNumber / 2,
+			             2, 10),
 				Mathf.Clamp (waveNumber, 10, 60)),
-			          Mathf.Clamp (waveNumber / 20, 1, 5));
+			          Mathf.Clamp (waveNumber / 20,
+			             1, 5));
 			break;
 		case 2:
 			Arc (PlayerTravelDirection (),
 			     Random.Range (5,
-			              Mathf.Clamp (waveNumber / 2, 5, 40)));
+			              Mathf.Clamp (waveNumber / 2,
+			             5, 40)));
 			break;
 		default:
 			Surround (
 				Random.Range (1,
-			              Mathf.Clamp (waveNumber / 3, 1, 30)),
+			              Mathf.Clamp (waveNumber / 3,
+			             1, 30)),
 				1);
 			break;
 		}
@@ -99,8 +103,18 @@ public class EnemySpawner : MonoBehaviour
 		if (waveNumber > 25 && Random.value <= hordeExplosiveChance) {
 			Factory.create.ExplosiveEnemy (groupPosition, Quaternion.identity);
 		}
+		bool specialHorde = false;
+		EnemyType specialType = (EnemyType)Random.Range (0, 3);
+		if (waveNumber > 50 & Random.value < 0.25f) {
+			specialHorde = true;
+			Factory.create.ExplosiveEnemy (groupPosition, Quaternion.identity);
+		}
 		for (int j = 0; j < hordeSize; j++) {
-			Spawn (RandomDirection () * Random.Range (0, 5.0f) + groupPosition);
+			if (specialHorde) {
+				Factory.create.ByReference (enemyTypes [(int)specialType], RandomDirection () * Random.Range (0, 5.0f) + groupPosition, Quaternion.identity);
+			} else {
+				Spawn (RandomDirection () * Random.Range (0, 5.0f) + groupPosition);
+			}
 		}
 		hordeSize++;
 	}
