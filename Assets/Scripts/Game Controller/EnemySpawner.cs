@@ -29,6 +29,15 @@ public class EnemySpawner : MonoBehaviour
 			waveNumber++;
 			Arc (PlayerTravelDirection (), Random.Range (PlayerDirectionStagnation (), PlayerDirectionStagnation () * 2));
 			RandomFormation ();
+			if (waveNumber > 10) {
+				enemySack.Push (EnemyType.Quick);
+			}
+			if (waveNumber == 20) {
+				enemySack.Push (EnemyType.Tough);
+			}
+			if (waveNumber > 50 && waveNumber < 60) {
+				enemySack.Push (EnemyType.Stalking);
+			}
 		}
 	}
 
@@ -41,7 +50,7 @@ public class EnemySpawner : MonoBehaviour
 			break;
 		case 1:
 			Surround (Random.Range (
-				Mathf.Clamp (waveNumber / 2, 1, 15),
+				Mathf.Clamp (waveNumber / 2, 2, 10),
 				Mathf.Clamp (waveNumber, 10, 60)),
 			          Mathf.Clamp (waveNumber / 20, 1, 5));
 			break;
@@ -83,7 +92,7 @@ public class EnemySpawner : MonoBehaviour
 	private void Horde ()
 	{
 		Vector2 groupPosition = PlayerTravelDirection () * Distance (5) + cameraPosition;
-		if (hordeSize > hordeSizeExplosiveThreshold && Random.value <= hordeExplosiveChance) {
+		if (waveNumber > 25 && Random.value <= hordeExplosiveChance) {
 			Factory.create.ExplosiveEnemy (groupPosition, Quaternion.identity);
 		}
 		for (int j = 0; j < hordeSize; j++) {
