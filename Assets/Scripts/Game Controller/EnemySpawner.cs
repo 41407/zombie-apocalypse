@@ -8,9 +8,10 @@ public class EnemySpawner : MonoBehaviour
 	public int hordeSize;
 	public int hordeSizeExplosiveThreshold = 10;
 	public float hordeExplosiveChance = 0.5f;
-	public float spawnInterval = 0.5f;
+	public float spawnInterval = 0.75f;
 	public float minimumDistanceFromPlayer = 5.0f;
 	public float distanceVariance = 5.0f;
+	public int waveNumber = 0;
 	private Vector2 cameraPosition;
 	public List<GameObject> enemyTypes;
 	private Sack enemySack;
@@ -21,16 +22,17 @@ public class EnemySpawner : MonoBehaviour
 		enemySack = gameObject.GetComponent<Sack> ();
 	}
 
-	public void GenerateEnemies ()
+	private void GenerateEnemies ()
 	{
 		cameraPosition = Camera.main.transform.position;
 		if (GetComponent<SceneController> ().player) {
+			waveNumber++;
 			Arc (PlayerTravelDirection (), Random.Range (PlayerDirectionStagnation (), PlayerDirectionStagnation () * 2));
 			RandomFormation ();
 		}
 	}
 
-	void RandomFormation ()
+	private void RandomFormation ()
 	{
 		int formation = Random.Range (0, 10);
 		switch (formation) {
