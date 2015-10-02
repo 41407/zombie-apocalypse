@@ -17,15 +17,15 @@ public class EnemySpawner : MonoBehaviour
 
 	void OnEnable ()
 	{
-		InvokeRepeating ("Spawn", spawnInterval, spawnInterval);
+		InvokeRepeating ("GenerateEnemies", spawnInterval, spawnInterval);
 		enemySack = gameObject.GetComponent<Sack> ();
 	}
 
-	public void Spawn ()
+	public void GenerateEnemies ()
 	{
 		cameraPosition = Camera.main.transform.position;
 		if (GetComponent<SceneController> ().player) {
-			Arc (PlayerTravelDirection (), Random.Range (1, PlayerDirectionStagnation ()));
+			Arc (PlayerTravelDirection (), Random.Range (PlayerDirectionStagnation (), PlayerDirectionStagnation () * 2));
 			RandomFormation ();
 		}
 	}
@@ -55,7 +55,7 @@ public class EnemySpawner : MonoBehaviour
 			Vector2 groupPosition = direction * Distance () + cameraPosition;
 			groupPosition = Quaternion.AngleAxis (-numberOfEnemies / 2, Vector3.back) * groupPosition;
 			for (int i = 0; i < numberOfEnemies; i++) {
-				CreateFromPool (groupPosition);
+				Spawn (groupPosition);
 				groupPosition = Quaternion.AngleAxis (1, Vector3.back) * groupPosition;
 			}
 		}
@@ -67,7 +67,7 @@ public class EnemySpawner : MonoBehaviour
 		for (int i = 0; i < numberOfGroups; i++) {
 			groupPosition = RandomDirection () * Distance () + cameraPosition;
 			for (int j = 0; j < Random.Range (1, enemiesInEachGroup); j++) {
-				CreateFromPool (RandomDirection () * Random.Range (0, 2.0f) + groupPosition);
+				Spawn (RandomDirection () * Random.Range (0, 2.0f) + groupPosition);
 			}
 		}
 	}
@@ -79,12 +79,12 @@ public class EnemySpawner : MonoBehaviour
 			Factory.create.ExplosiveEnemy (groupPosition, Quaternion.identity);
 		}
 		for (int j = 0; j < hordeSize; j++) {
-			CreateFromPool (RandomDirection () * Random.Range (0, 5.0f) + groupPosition);
+			Spawn (RandomDirection () * Random.Range (0, 5.0f) + groupPosition);
 		}
 		hordeSize++;
 	}
 
-	private void CreateFromPool (Vector2 position)
+	private void Spawn (Vector2 position)
 	{
 		Factory.create.ByReference (enemyTypes [(int)enemySack.Pop ()], position, Quaternion.identity);
 	}
