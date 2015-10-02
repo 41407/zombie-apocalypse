@@ -40,13 +40,21 @@ public class EnemySpawner : MonoBehaviour
 			Horde ();
 			break;
 		case 1:
-			Surround (Random.Range (10, 50), 5);
+			Surround (Random.Range (
+				Mathf.Clamp (waveNumber / 2, 1, 15),
+				Mathf.Clamp (waveNumber, 10, 60)),
+			          Mathf.Clamp (waveNumber / 20, 1, 5));
 			break;
 		case 2:
-			Arc (PlayerTravelDirection (), Random.Range (10, 20));
+			Arc (PlayerTravelDirection (),
+			     Random.Range (5,
+			              Mathf.Clamp (waveNumber / 2, 5, 40)));
 			break;
 		default:
-			Surround (Random.Range (1, 20), 1);
+			Surround (
+				Random.Range (1,
+			              Mathf.Clamp (waveNumber / 3, 1, 30)),
+				1);
 			break;
 		}
 	}
