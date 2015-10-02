@@ -29,7 +29,7 @@ public class EnemySpawner : MonoBehaviour
 			waveNumber++;
 			Arc (PlayerTravelDirection (), Random.Range (PlayerDirectionStagnation (), PlayerDirectionStagnation () * 2));
 			RandomFormation ();
-			if (waveNumber > 10) {
+			if (waveNumber > 10 && waveNumber < 20) {
 				enemySack.Push (EnemyType.Quick);
 			}
 			if (waveNumber == 20) {
@@ -37,6 +37,7 @@ public class EnemySpawner : MonoBehaviour
 			}
 			if (waveNumber > 50 && waveNumber < 60) {
 				enemySack.Push (EnemyType.Stalking);
+				enemySack.Push (EnemyType.Quick);
 			}
 		}
 	}
@@ -50,9 +51,9 @@ public class EnemySpawner : MonoBehaviour
 			break;
 		case 1:
 			Surround (Random.Range (
-				Mathf.Clamp (waveNumber / 2,
+				Mathf.Clamp (waveNumber / 4,
 			             2, 10),
-				Mathf.Clamp (waveNumber, 10, 60)),
+				Mathf.Clamp (waveNumber / 2, 10, 60)),
 			          Mathf.Clamp (waveNumber / 20,
 			             1, 5));
 			break;
