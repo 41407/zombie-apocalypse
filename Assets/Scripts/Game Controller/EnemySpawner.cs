@@ -37,6 +37,15 @@ public class EnemySpawner : MonoBehaviour
 				enemySack.Push (EnemyType.Stalking);
 				enemySack.Push (EnemyType.Quick);
 			}
+			GeneratePowerup ();
+		}
+	}
+
+	private void GeneratePowerup ()
+	{
+		if (!GameObject.FindGameObjectWithTag ("Power up") && waveNumber > 30) {
+			print ("Powerup spawned");
+			Factory.create.Powerup (RandomDirection () * Distance (40), Quaternion.identity);
 		}
 	}
 

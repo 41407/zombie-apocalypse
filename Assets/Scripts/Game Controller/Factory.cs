@@ -10,6 +10,7 @@ public class Factory : MonoBehaviour
 	public GameObject stalkingEnemy;
 	public GameObject explosiveEnemy;
 	public GameObject playerBullet;
+	public GameObject powerup;
 
 	//Here is a private reference only this class can access
 	private static Factory _instance;
@@ -28,9 +29,10 @@ public class Factory : MonoBehaviour
 	void OnEnable ()
 	{
 		ObjectPool.pool.Initialize (simpleEnemy, 200);
-		ObjectPool.pool.Initialize (toughEnemy, 100);
+		ObjectPool.pool.Initialize (toughEnemy, 50);
 		ObjectPool.pool.Initialize (quickEnemy, 200);
 		ObjectPool.pool.Initialize (stalkingEnemy, 50);
+		ObjectPool.pool.Initialize (powerup, 50);
 	}
 
 	GameObject InitializeParameters (GameObject created)
@@ -69,9 +71,14 @@ public class Factory : MonoBehaviour
 	{
 		return ByReference (explosiveEnemy, position, rotation);
 	}
-
+	
 	public GameObject PlayerBullet (Vector2 position, Quaternion rotation)
 	{
 		return ByReference (playerBullet, position, rotation);
+	}
+	
+	public GameObject Powerup (Vector2 position, Quaternion rotation)
+	{
+		return ByReference (powerup, position, rotation);
 	}
 }

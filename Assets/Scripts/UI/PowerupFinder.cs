@@ -9,9 +9,10 @@ public class PowerupFinder : MonoBehaviour
 	void Update ()
 	{
 		if (powerUp) {
-			transform.LookAt (powerUp.transform.position);
-		} else {
-			powerUp = GameObject.FindGameObjectWithTag ("PowerUp");
+			if (powerUp.activeSelf) {
+				transform.LookAt (powerUp.transform.position);
+			}
 		}
+		powerUp = GameObject.FindGameObjectWithTag ("Power up");
 	}
 }
