@@ -35,7 +35,7 @@ public class PlayerHealthParticles : MonoBehaviour
 		} else {
 			flameColor.r = 1;
 		}
-		if (gameObject.GetComponentInParent<Firing> ().tripleMachineGunAmmo > 0) {
+		if (gameObject.GetComponentInParent<Firing> ().tripleMachineGunTimer > 0) {
 			flameColor.b = 1;
 			flameColor.r = 0.25f;
 			flameColor.g = 0.45f;

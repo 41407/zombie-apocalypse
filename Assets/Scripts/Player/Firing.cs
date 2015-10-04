@@ -6,8 +6,15 @@ public class Firing : MonoBehaviour
 	public float rateOfFire = 0.08f;
 	public GameObject muzzleFlash;
 	public float muzzleFlashOffset = 1.0f;
-	public int tripleMachineGunMax = 30;
-	public int tripleMachineGunAmmo;
+	public float tripleMachineGunTimeout = 30;
+	public float tripleMachineGunTimer;
+
+	void Update ()
+	{
+		if (tripleMachineGunTimer > 0) {
+			tripleMachineGunTimer -= Time.deltaTime;
+		}
+	}
 
 	void StartFiring ()
 	{
@@ -21,16 +28,15 @@ public class Firing : MonoBehaviour
 
 	void TripleMachineGun ()
 	{
-		tripleMachineGunAmmo = tripleMachineGunMax;
+		tripleMachineGunTimer = tripleMachineGunTimeout;
 	}
 
 	void Fire ()
 	{		
-		if (tripleMachineGunAmmo > 0) {
+		if (tripleMachineGunTimer > 0) {
 			ShootBullet (30).SendMessage ("SetDamage", 2);
 			ShootBullet (5).SendMessage ("SetDamage", 2);
 			ShootBullet (30).SendMessage ("SetDamage", 2);
-			tripleMachineGunAmmo--;
 		} else {
 			ShootBullet (5).SendMessage ("SetDamage", 1);
 		}
