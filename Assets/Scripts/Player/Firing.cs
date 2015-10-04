@@ -7,6 +7,7 @@ public class Firing : MonoBehaviour
 	public GameObject muzzleFlash;
 	public float muzzleFlashOffset = 1.0f;
 	public bool tripleMachineGun = false;
+	public float tripleMachineGunTimeout = 5.0f;
 
 	void StartFiring ()
 	{
@@ -16,6 +17,17 @@ public class Firing : MonoBehaviour
 	void StopFiring ()
 	{
 		CancelInvoke ();
+	}
+
+	void TripleMachineGun ()
+	{
+		tripleMachineGun = true;
+		Invoke ("EndTripleMachineGun", tripleMachineGunTimeout);
+	}
+
+	void EndTripleMachineGun ()
+	{
+		tripleMachineGun = false;
 	}
 
 	void Fire ()
