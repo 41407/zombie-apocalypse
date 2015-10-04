@@ -40,7 +40,7 @@ public class Factory : MonoBehaviour
 		return created;
 	}
 
-	public GameObject ByReference (GameObject gameObject, Vector2 position, Quaternion rotation)
+	public GameObject ByReference (GameObject gameObject, Vector3 position, Quaternion rotation)
 	{
 		return InitializeParameters (ObjectPool.pool.Pull (gameObject, position, rotation));
 	}
