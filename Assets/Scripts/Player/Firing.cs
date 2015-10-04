@@ -6,20 +6,27 @@ public class Firing : MonoBehaviour
 	public float rateOfFire = 0.08f;
 	public GameObject muzzleFlash;
 	public float muzzleFlashOffset = 1.0f;
+	public bool tripleMachineGun = false;
 
 	void StartFiring ()
 	{
-		InvokeRepeating("Fire", 0, rateOfFire);
+		InvokeRepeating ("Fire", 0, rateOfFire);
 	}
 
 	void StopFiring ()
 	{
-		CancelInvoke();
+		CancelInvoke ();
 	}
 
 	void Fire ()
 	{		
-		ShootBullet (5).SendMessage ("SetDamage", 1);
+		if (tripleMachineGun) {
+			ShootBullet (30).SendMessage ("SetDamage", 2);
+			ShootBullet (5).SendMessage ("SetDamage", 2);
+			ShootBullet (30).SendMessage ("SetDamage", 2);
+		} else {
+			ShootBullet (5).SendMessage ("SetDamage", 1);
+		}
 	}
 
 	GameObject ShootBullet ()
