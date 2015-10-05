@@ -23,7 +23,7 @@ public class LookAtObject : MonoBehaviour
 
 	private void TurnTowardsObject ()
 	{
-		Vector3 relativeLookDirection = gameObject.transform.position - objectToLookAt.transform.position;
+		Vector3 relativeLookDirection = transform.position - objectToLookAt.transform.position;
 		float angle = Mathf.Atan2 (relativeLookDirection.y, relativeLookDirection.x) * Mathf.Rad2Deg + 90;
 		transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.AngleAxis (angle, Vector3.forward), slerp);
 	}
