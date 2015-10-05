@@ -34,33 +34,21 @@ public class Firing : MonoBehaviour
 	void Fire ()
 	{		
 		if (tripleMachineGunTimer > 0) {
-			ShootBullet (30).SendMessage ("SetDamage", 2);
-			ShootBullet (5).SendMessage ("SetDamage", 2);
-			ShootBullet (30).SendMessage ("SetDamage", 2);
+			ShootBullet (30);
+			ShootBullet (5);
+			ShootBullet (30);
 		} else {
-			ShootBullet (5).SendMessage ("SetDamage", 1);
+			ShootBullet (5);
 		}
 	}
 
-	GameObject ShootBullet ()
-	{
-		return ShootBullet (0, 0);
-	}
-	
-	GameObject ShootBullet (float accuracy)
-	{
-		return ShootBullet (accuracy, 0);
-	}
-
-	GameObject ShootBullet (float accuracy, float speed)
+	void ShootBullet (float accuracy)
 	{
 		Quaternion rotation = transform.rotation * Quaternion.AngleAxis (Random.Range (-accuracy, (accuracy != 0 ? accuracy + 1 : 0)), Vector3.forward);
 		GameObject bullet = Factory.create.PlayerBullet (transform.position, rotation);
 		bullet.SendMessage ("SetVelocity", GetComponent<Rigidbody2D> ().velocity);
-		bullet.SendMessage ("SetSpeed", speed);
 		if (muzzleFlash) {
 			Factory.create.ByReference (muzzleFlash, transform.position + transform.rotation * Vector2.up * muzzleFlashOffset, transform.rotation);
 		}
-		return bullet;
 	}
 }
