@@ -4,13 +4,17 @@ using System.Collections;
 public class RandomAudioClip : MonoBehaviour
 {
 	public AudioClip[] clips;
+	private AudioSource source;
 	public float pitchMin = 1f;
 	public float pitchMax = 1f;
 
 	void OnEnable ()
 	{
-		gameObject.GetComponent<AudioSource> ().clip = clips [Random.Range (0, clips.Length)];
-		gameObject.GetComponent<AudioSource> ().Play ();
-		gameObject.GetComponent<AudioSource> ().pitch = Random.Range (pitchMin, pitchMax);
+		if(!source) {
+			source = gameObject.GetComponent<AudioSource> ();
+		}
+		source.clip = clips [Random.Range (0, clips.Length)];
+		source.pitch = Random.Range (pitchMin, pitchMax);
+		source.Play ();
 	}
 }
