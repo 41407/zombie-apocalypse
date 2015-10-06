@@ -5,25 +5,20 @@ public class ParticleDecay : MonoBehaviour
 {
 	private ParticleSystem particles;
 
-	void Update ()
-	{
-		if (particles.isStopped) {
-			if (transform.parent) {
-				transform.parent.gameObject.SetActive (false);
-			} else {
-				gameObject.SetActive (false);
-			}
-		}
-	}
-
 	void OnEnable ()
 	{
 		particles = gameObject.GetComponent<ParticleSystem> ();
 		particles.Play ();
+		Invoke ("Disable", particles.duration);
 	}
-	
-	void OnDisable ()
+
+	void Disable ()
 	{
 		particles.Stop ();
+		if (transform.parent) {
+			transform.parent.gameObject.SetActive (false);
+		} else {
+			gameObject.SetActive (false);
+		}
 	}
 }
