@@ -3,9 +3,11 @@ using System.Collections;
 
 public class ParticleDecay : MonoBehaviour
 {
+	private ParticleSystem particles;
+
 	void Update ()
 	{
-		if (gameObject.GetComponent<ParticleSystem> ().isStopped) {
+		if (particles.isStopped) {
 			if (transform.parent) {
 				transform.parent.gameObject.SetActive (false);
 			} else {
@@ -16,11 +18,12 @@ public class ParticleDecay : MonoBehaviour
 
 	void OnEnable ()
 	{
-		gameObject.GetComponent<ParticleSystem> ().Play ();
+		particles = gameObject.GetComponent<ParticleSystem> ();
+		particles.Play ();
 	}
 	
 	void OnDisable ()
 	{
-		gameObject.GetComponent<ParticleSystem> ().Stop ();
+		particles.Stop ();
 	}
 }

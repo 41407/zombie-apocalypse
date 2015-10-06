@@ -3,7 +3,7 @@ using System.Collections;
 
 public class TurnTowardsAndFollow : MonoBehaviour
 {
-	public GameObject player;
+	public Transform player;
 	public float turningRate = 0.1f;
 	public float baseMoveSpeed = 300f;
 	public float moveSpeedModifier = 1.0f;
@@ -16,7 +16,7 @@ public class TurnTowardsAndFollow : MonoBehaviour
 
 	void SetPlayer (GameObject player)
 	{
-		this.player = player;
+		this.player = player.transform;
 	}
 
 	void SetMoveSpeedModifier (float newModifier)
@@ -63,7 +63,7 @@ public class TurnTowardsAndFollow : MonoBehaviour
 
 	private void TurnTowardsPlayer ()
 	{
-		Vector3 relativeLookDirection = gameObject.transform.position - player.transform.position;
+		Vector3 relativeLookDirection = transform.position - player.position;
 		float angle = Mathf.Atan2 (relativeLookDirection.y, relativeLookDirection.x) * Mathf.Rad2Deg + 90;
 		transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.AngleAxis (angle, Vector3.forward), turningRate);
 	}
