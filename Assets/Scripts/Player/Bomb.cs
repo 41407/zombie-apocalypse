@@ -7,6 +7,7 @@ public class Bomb : MonoBehaviour
 	public float bombTimer = 0f;
 	public GameObject bomb;
 	private bool reloading = true;
+	public float pauseAfterUsing = 5.0f;
 
 	void Update ()
 	{
@@ -20,6 +21,7 @@ public class Bomb : MonoBehaviour
 		if (bombTimer >= bombReloadTime) {
 			bombTimer = 0;
 			CreateExplosion ();
+			GameObject.Find ("GameController").SendMessage ("Pause", pauseAfterUsing);
 		}
 	}
 

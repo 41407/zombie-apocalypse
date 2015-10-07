@@ -13,6 +13,7 @@ public class EnemySpawner : MonoBehaviour
 	private Vector2 cameraPosition;
 	public List<GameObject> enemyTypes;
 	private Sack enemySack;
+	private bool paused = false;
 
 	void OnEnable ()
 	{
@@ -20,24 +21,39 @@ public class EnemySpawner : MonoBehaviour
 		enemySack = gameObject.GetComponent<Sack> ();
 	}
 
+	void Pause (float time)
+	{
+		paused = true;
+		print ("Enemy spawning paused");
+		Invoke ("Resume", time);
+	}
+
+	void Resume ()
+	{
+		print ("Enemy spawning resumed");
+		paused = false;
+	}
+
 	private void GenerateEnemies ()
 	{
-		cameraPosition = Camera.main.transform.position;
-		if (GetComponent<SceneController> ().player) {
-			waveNumber++;
-			Arc (PlayerTravelDirection (), Random.Range (PlayerDirectionStagnation (), PlayerDirectionStagnation () * 2));
-			RandomFormation ();
-			if (waveNumber > 10 && waveNumber < 20) {
-				enemySack.Push (EnemyType.Quick);
+		if (!paused) {
+			cameraPosition = Camera.main.transform.position;
+			if (GetComponent<SceneController> ().player) {
+				waveNumber++;
+				Arc (PlayerTravelDirection (), Random.Range (PlayerDirectionStagnation (), PlayerDirectionStagnation () * 2));
+				RandomFormation ();
+				if (waveNumber > 10 && waveNumber < 20) {
+					enemySack.Push (EnemyType.Quick);
+				}
+				if (waveNumber == 20) {
+					enemySack.Push (EnemyType.Tough);
+				}
+				if (waveNumber > 50 && waveNumber < 60) {
+					enemySack.Push (EnemyType.Stalking);
+					enemySack.Push (EnemyType.Quick);
+				}
+				GeneratePowerup ();
 			}
-			if (waveNumber == 20) {
-				enemySack.Push (EnemyType.Tough);
-			}
-			if (waveNumber > 50 && waveNumber < 60) {
-				enemySack.Push (EnemyType.Stalking);
-				enemySack.Push (EnemyType.Quick);
-			}
-			GeneratePowerup ();
 		}
 	}
 

@@ -10,6 +10,7 @@ public class PlayerHealth : MonoBehaviour
 	public bool screenShakeOnDamage = true;
 	public GameObject explosion;
 	public GameObject tookDamage;
+	public float pauseAfterDamage = 3.0f;
 
 	void OnEnable ()
 	{
@@ -36,6 +37,7 @@ public class PlayerHealth : MonoBehaviour
 	void TakeDamage (float damage)
 	{
 		currentHealth -= damage;
+		GameObject.Find ("GameController").SendMessage ("Pause", pauseAfterDamage);
 		Camera.main.SendMessage ("Shake", 2.0f);
 		if (tookDamage) {
 			Factory.create.ByReference (tookDamage, transform.position, transform.rotation);
