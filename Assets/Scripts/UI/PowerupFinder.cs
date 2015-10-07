@@ -10,7 +10,7 @@ public class PowerupFinder : MonoBehaviour
 	{
 		if (powerUp) {
 			if (powerUp.activeSelf) {
-				transform.LookAt (powerUp.transform.position);
+				transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (powerUp.transform.position - transform.position), 0.1f);
 			}
 		}
 		powerUp = GameObject.FindGameObjectWithTag ("Power up");
