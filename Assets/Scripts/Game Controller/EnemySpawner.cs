@@ -24,12 +24,14 @@ public class EnemySpawner : MonoBehaviour
 	void Pause (float time)
 	{
 		paused = true;
+		CancelInvoke ();
 		Invoke ("Resume", time);
 	}
 
 	void Resume ()
 	{
 		paused = false;
+		InvokeRepeating ("GenerateEnemies", spawnInterval, spawnInterval);
 	}
 
 	private void GenerateEnemies ()
@@ -57,7 +59,7 @@ public class EnemySpawner : MonoBehaviour
 
 	private void GeneratePowerup ()
 	{
-		if (!GameObject.FindGameObjectWithTag ("Power up") && waveNumber > 30) {
+		if (!GameObject.FindGameObjectWithTag ("Power up") && waveNumber > 30 && player.GetComponent<Firing> ().tripleMachineGunTimer <= 1) {
 			print ("Powerup spawned");
 			Factory.create.Powerup (cameraPosition + RandomDirection () * Distance (60), Quaternion.identity);
 		}

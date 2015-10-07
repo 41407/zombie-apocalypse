@@ -7,21 +7,26 @@ public class OutOfLOSDecay : MonoBehaviour
 
 	void OnEnable ()
 	{
-		Invoke("Destroy", decayTime);
+		Invoke ("Destroy", decayTime);
 	}
 
 	void OnBecameVisible ()
 	{
-		CancelInvoke();
+		CancelInvoke ();
 	}
 
 	void OnBecameInvisible ()
 	{
-		Invoke("Destroy", decayTime);
+		Invoke ("Destroy", decayTime);
 	}
 
-	private void Destroy () 
+	private void Destroy ()
 	{
 		gameObject.SetActive (false);
+	}
+
+	void OnDisable ()
+	{
+		CancelInvoke ();
 	}
 }
