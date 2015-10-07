@@ -36,6 +36,9 @@ public class PlayerInput : MonoBehaviour
 		if (Input.GetMouseButtonUp (0)) {
 			gameObject.SendMessage ("StopFiring");
 		}
+		if (Input.GetMouseButtonDown (1)) {
+			gameObject.SendMessage ("FireBomb");
+		}
 	}
 
 	void StartFiring ()
