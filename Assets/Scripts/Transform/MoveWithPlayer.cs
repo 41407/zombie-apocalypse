@@ -16,11 +16,11 @@ public class MoveWithPlayer : MonoBehaviour
 		if (player) {
 			Vector3 deltaPosition = transform.position - player.transform.position; 
 			if (Mathf.Abs (transform.position.x - player.transform.position.x) > textureSize) {
-				transform.Translate (new Vector2 (Mathf.Clamp(-deltaPosition.x, -textureSize, textureSize), 0));
+				transform.Translate(new Vector2 (Mathf.Clamp(-deltaPosition.x, -textureSize, textureSize), 0));
 			}
 		
 			if (Mathf.Abs (transform.position.y - player.transform.position.y) > textureSize) {
-				transform.Translate (new Vector2 (0, Mathf.Clamp(-deltaPosition.y, -textureSize, textureSize)));
+				transform.Translate(new Vector2 (0, Mathf.Clamp(-deltaPosition.y, -textureSize, textureSize)));
 			}
 		}
 	}
