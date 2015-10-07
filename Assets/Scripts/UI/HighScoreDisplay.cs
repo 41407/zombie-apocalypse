@@ -4,7 +4,7 @@ using System.Collections;
 
 public class HighScoreDisplay : MonoBehaviour
 {
-	void Update ()
+	void OnEnable ()
 	{
 		string comparator = "<";
 		if (Score.GetScore () == PlayerPrefs.GetInt ("High score")) {

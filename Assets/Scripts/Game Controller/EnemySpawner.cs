@@ -60,7 +60,6 @@ public class EnemySpawner : MonoBehaviour
 	private void GeneratePowerup ()
 	{
 		if (!GameObject.FindGameObjectWithTag ("Power up") && waveNumber > 30 && player.GetComponent<Firing> ().tripleMachineGunTimer <= 1) {
-			print ("Powerup spawned");
 			Factory.create.Powerup (cameraPosition + RandomDirection () * Distance (60), Quaternion.identity);
 		}
 	}

@@ -9,13 +9,19 @@ public class SceneController : MonoBehaviour
 	public string nextLevel;
 	private bool playerIsAlive = true;
 	public bool resetScoreOnLevelEnd = false;
+	public float anyKeyToContinueTime = 2.0f;
+	private bool anyKey = false;
 
 	void Update ()
 	{
 		if (!player && playerIsAlive) {
 			Invoke ("PlayerDied", 0);
 			Invoke ("EndGame", nextLevelTimeout);
+			Invoke ("AnyKey", anyKeyToContinueTime);
 			playerIsAlive = false;
+		}
+		if (anyKey && (Input.anyKeyDown || Input.GetMouseButtonDown(0))) {
+			EndGame ();
 		}
 	}
 
@@ -34,5 +40,10 @@ public class SceneController : MonoBehaviour
 			Score.Reset ();
 		}
 		Application.LoadLevel (nextLevel);
+	}
+
+	private void AnyKey ()
+	{
+		anyKey = true;
 	}
 }
