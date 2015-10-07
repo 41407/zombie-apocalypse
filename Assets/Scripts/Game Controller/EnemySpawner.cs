@@ -52,6 +52,9 @@ public class EnemySpawner : MonoBehaviour
 					enemySack.Push (EnemyType.Stalking);
 					enemySack.Push (EnemyType.Quick);
 				}
+				if (waveNumber > 80 && waveNumber < 90) {
+					enemySack.Push (EnemyType.Simple);
+				}
 				GeneratePowerup ();
 			}
 		}

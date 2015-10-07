@@ -39,7 +39,7 @@ public class SceneController : MonoBehaviour
 			}
 			Score.Reset ();
 		}
-		Application.LoadLevel (nextLevel);
+		Application.LoadLevelAsync (nextLevel);
 	}
 
 	private void AnyKey ()
