@@ -59,7 +59,7 @@ public class EnemySpawner : MonoBehaviour
 	{
 		if (!GameObject.FindGameObjectWithTag ("Power up") && waveNumber > 30) {
 			print ("Powerup spawned");
-			Factory.create.Powerup (RandomDirection () * Distance (40), Quaternion.identity);
+			Factory.create.Powerup (RandomDirection () * Distance (60), Quaternion.identity);
 		}
 	}
 
@@ -72,22 +72,22 @@ public class EnemySpawner : MonoBehaviour
 			break;
 		case 1:
 			Surround (Random.Range (
-				Mathf.Clamp (waveNumber / 4,
+				Mathf.Clamp (waveNumber / 5,
 			             2, 10),
-				Mathf.Clamp (waveNumber / 2, 10, 60)),
+				Mathf.Clamp (waveNumber / 3, 10, 60)),
 			          Mathf.Clamp (waveNumber / 20,
 			             1, 5));
 			break;
 		case 2:
 			Arc (PlayerTravelDirection (),
 			     Random.Range (5,
-			              Mathf.Clamp (waveNumber / 2,
+			              Mathf.Clamp (waveNumber / 4,
 			             5, 40)));
 			break;
 		default:
 			Surround (
 				Random.Range (1,
-			              Mathf.Clamp (waveNumber / 3,
+			              Mathf.Clamp (waveNumber / 5,
 			             1, 30)),
 				1);
 			break;
