@@ -9,6 +9,7 @@ public class Health : MonoBehaviour
 	public bool applyScoring = true;
 	public GameObject explosion;
 	public GameObject tookDamage;
+	public GameObject onDeathDecal;
 	public bool pooledObject = true;
 	public float screenShakeOnDeath = 0.1f;
 	public float screenShakeOnDamage = 0f;
@@ -46,6 +47,9 @@ public class Health : MonoBehaviour
 			}
 			if (explosion) {
 				ObjectPool.pool.Pull (explosion, transform.position, transform.rotation).SetActive (true);
+			}
+			if (onDeathDecal) {
+				ObjectPool.pool.Pull (onDeathDecal, transform.position, transform.rotation).SetActive (true);
 			}
 			if (screenShakeOnDeath > 0) {
 				Camera.main.SendMessage ("Shake", screenShakeOnDeath);
