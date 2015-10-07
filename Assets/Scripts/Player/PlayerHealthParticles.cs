@@ -25,7 +25,7 @@ public class PlayerHealthParticles : MonoBehaviour
 			particles.emissionRate = woundedRate;
 		} else {
 			particles.startSize = fullHealthSize;
-			flameColor.g = 0.75f;
+			flameColor.g = 0.5f;
 			particles.emissionRate = fullHealthRate;
 		}
 		if (health.regenerate && health.currentHealth < health.maxHealth) {
