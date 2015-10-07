@@ -24,13 +24,11 @@ public class EnemySpawner : MonoBehaviour
 	void Pause (float time)
 	{
 		paused = true;
-		print ("Enemy spawning paused");
 		Invoke ("Resume", time);
 	}
 
 	void Resume ()
 	{
-		print ("Enemy spawning resumed");
 		paused = false;
 	}
 
