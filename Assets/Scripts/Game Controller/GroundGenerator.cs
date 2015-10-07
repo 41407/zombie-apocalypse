@@ -31,11 +31,11 @@ public class GroundGenerator : MonoBehaviour
 		Vector2 playerPosition = player.transform.position;
 		for (int i = 0; i < numberOfNewObjects; i++) {
 			Vector3 featurePosition = (Vector3)playerPosition + (Vector3)direction * featureDistance + transform.position;
-			featurePosition.z -= zLayer / 100f;
-			zLayer++;
-			if (zLayer > 16) {
-				zLayer = 0;
-			}
+			//featurePosition.z -= zLayer / 100f;
+			//zLayer++;
+			//if (zLayer > 16) {
+			//	zLayer = 0;
+			//}
 			direction = Quaternion.AngleAxis (angleBetweenEach, Vector3.forward) * direction;
 			Factory.create.ByReference (groundFeature, featurePosition, Quaternion.AngleAxis (Random.Range (0, 360), Vector3.forward));
 		}
