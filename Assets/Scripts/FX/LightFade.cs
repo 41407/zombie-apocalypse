@@ -5,11 +5,12 @@ public class LightFade : MonoBehaviour
 {
 	private Light lightComponent;
 	public float fadeSpeed;
+	public float startingIntensity = 1.00f;
 
 	void OnEnable ()
 	{
 		lightComponent = gameObject.GetComponent<Light> ();
-		lightComponent.intensity = 1.00f;
+		lightComponent.intensity = startingIntensity;
 	}
 
 	void Update ()
