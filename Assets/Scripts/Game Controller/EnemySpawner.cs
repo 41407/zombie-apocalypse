@@ -155,7 +155,7 @@ public class EnemySpawner : MonoBehaviour
 
 	private float Distance (float additionalDistance)
 	{
-		return minimumDistanceFromPlayer + Random.Range (additionalDistance, distanceVariance);
+		return minimumDistanceFromPlayer + Random.Range (additionalDistance, additionalDistance + distanceVariance);
 	}
 
 	private Vector2 PlayerTravelDirection ()
