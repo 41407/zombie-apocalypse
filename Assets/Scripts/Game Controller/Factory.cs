@@ -28,11 +28,11 @@ public class Factory : MonoBehaviour
 
 	void OnEnable ()
 	{
-		ObjectPool.pool.Initialize (simpleEnemy, 200);
-		ObjectPool.pool.Initialize (toughEnemy, 50);
-		ObjectPool.pool.Initialize (quickEnemy, 200);
-		ObjectPool.pool.Initialize (stalkingEnemy, 50);
-		ObjectPool.pool.Initialize (powerup, 50);
+		ObjectPool.pool.Initialize (simpleEnemy, 50);
+		ObjectPool.pool.Initialize (toughEnemy, 10);
+		ObjectPool.pool.Initialize (quickEnemy, 50);
+		ObjectPool.pool.Initialize (stalkingEnemy, 10);
+		ObjectPool.pool.Initialize (powerup, 1);
 	}
 
 	GameObject InitializeParameters (GameObject created)
