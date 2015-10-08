@@ -7,6 +7,6 @@ public class GivesScore : MonoBehaviour
 
 		void ApplyScoring ()
 		{
-				Score.AddScore (score);
+			Score.AddScore (score);
 		}
 }

@@ -5,10 +5,14 @@ public class Bullet : MonoBehaviour
 {
 	public float speed = 500.0f;
 	public GameObject trailParticle;
+	private Rigidbody2D body;
 
 	void OnEnable ()
 	{
-		GetComponent<Rigidbody2D> ().AddForce (transform.rotation * Vector3.up * speed);
+		if (!body) {
+			body = GetComponent<Rigidbody2D> ();
+		}
+		body.AddForce (transform.rotation * Vector3.up * speed);
 	}
 
 	void Update ()
@@ -20,11 +24,11 @@ public class Bullet : MonoBehaviour
 
 	public void SetVelocity (Vector2 velocity)
 	{
-		GetComponent<Rigidbody2D> ().velocity = velocity;
+		body.velocity = velocity;
 	}
 
 	public void SetSpeed (float magnitude)
 	{
-		GetComponent<Rigidbody2D> ().AddForce (transform.rotation * Vector3.up * magnitude);
+		body.AddForce (transform.rotation * Vector3.up * magnitude);
 	}
 }

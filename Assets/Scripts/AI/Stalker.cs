@@ -8,11 +8,19 @@ public class Stalker : MonoBehaviour
 	public float cooldownTime = 2.0f;
 	public string targetTag;
 	private CircleCollider2D trigger;
+	private Rigidbody2D body;
+	private TrailRenderer trail;
 
 	void OnEnable ()
 	{
 		if (!trigger) {
 			trigger = gameObject.GetComponent<CircleCollider2D> ();
+		}
+		if (!body) {
+			body = gameObject.GetComponent<Rigidbody2D> ();
+		}
+		if (!trail) {
+			trail = gameObject.GetComponent<TrailRenderer> ();
 		}
 	}
 
@@ -45,13 +53,13 @@ public class Stalker : MonoBehaviour
 
 	void Charge ()
 	{
-		gameObject.GetComponent<Rigidbody2D> ().AddForce (transform.rotation * Vector2.up * chargeSpeed);
-		gameObject.GetComponent<TrailRenderer> ().enabled = true;
+		body.AddForce (transform.rotation * Vector2.up * chargeSpeed);
+		trail.enabled = true;
 	}
 
 	private void CancelCooldown ()
 	{
 		onCooldown = false;
-		gameObject.GetComponent<TrailRenderer> ().enabled = false;
+		trail.enabled = false;
 	}
 }

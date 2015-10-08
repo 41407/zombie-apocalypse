@@ -9,9 +9,13 @@ public class PlayerInput : MonoBehaviour
 	public float speedupStartTime = 30.0f;
 	public float speedupIncrement = 1.0f;
 	public float finalAcceleration = 100.0f;
+	private Rigidbody2D body;
 
 	void OnEnable ()
 	{
+		if (!body){
+			body = gameObject.GetComponent<Rigidbody2D> ();	
+		}
 		currentAcceleration = acceleration;
 		InvokeRepeating ("Speedup", speedupStartTime, 1.0f);
 	}
@@ -25,7 +29,7 @@ public class PlayerInput : MonoBehaviour
 	void Movement ()
 	{	
 		Vector2 input = new Vector2 (Input.GetAxisRaw ("Horizontal"), Input.GetAxisRaw ("Vertical"));
-		gameObject.GetComponent<Rigidbody2D> ().AddForce (input * currentAcceleration);
+		body.AddForce (input * currentAcceleration);
 	}
 
 	void Firing ()

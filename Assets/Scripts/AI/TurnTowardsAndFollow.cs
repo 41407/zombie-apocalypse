@@ -13,6 +13,7 @@ public class TurnTowardsAndFollow : MonoBehaviour
 	public float maxStunInterval = 2.0f;
 	public float stunLength = 1.0f;
 	public bool stunned = false;
+	private Rigidbody2D body;
 
 	void SetPlayer (GameObject player)
 	{
@@ -32,6 +33,9 @@ public class TurnTowardsAndFollow : MonoBehaviour
 		if (maxStunInterval > 0) {
 			RemoveStun ();
 		}
+		if (!body) {
+			body = gameObject.GetComponent<Rigidbody2D> ();
+		}
 	}
 	
 	void Update ()
@@ -40,7 +44,7 @@ public class TurnTowardsAndFollow : MonoBehaviour
 			if (player) {
 				TurnTowardsPlayer ();
 			}
-			GetComponent<Rigidbody2D> ().AddForce (transform.rotation * Vector2.up * moveSpeed * Time.deltaTime);
+			body.AddForce (transform.rotation * Vector2.up * moveSpeed * Time.deltaTime);
 		}
 	}
 

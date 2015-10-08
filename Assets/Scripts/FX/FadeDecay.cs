@@ -6,20 +6,24 @@ public class FadeDecay : MonoBehaviour
 	public float initialAlpha = 1.0f;
 	public float decayRate = 5.0f;
 	private bool outOfLOS;
+	private Renderer rend;
 
 	void OnEnable ()
 	{
+		if (!rend) {
+			rend = GetComponent<Renderer>();
+		}
 		SetAlpha (initialAlpha);
 	}
 
 	void Update ()
 	{
 		if (outOfLOS) {
-			Color newColor = GetComponent<Renderer> ().material.color;
+			Color newColor = rend.material.color;
 			float newAlpha = newColor.a - Time.deltaTime / decayRate;
 			if (newAlpha > 0) {
 				newColor.a = newAlpha;
-				GetComponent<Renderer> ().material.color = newColor;
+				rend.material.color = newColor;
 			} else {
 				gameObject.SetActive (false);
 			}
@@ -38,8 +42,8 @@ public class FadeDecay : MonoBehaviour
 
 	private void SetAlpha (float alpha)
 	{
-		Color initialColor = GetComponent<Renderer> ().material.color;
+		Color initialColor = rend.material.color;
 		initialColor.a = alpha;
-		GetComponent<Renderer> ().material.color = initialColor;
+		rend.material.color = initialColor;
 	}
 }

@@ -9,7 +9,9 @@ public class LightFade : MonoBehaviour
 
 	void OnEnable ()
 	{
-		lightComponent = gameObject.GetComponent<Light> ();
+		if (!lightComponent) {
+			lightComponent = gameObject.GetComponent<Light> ();
+		}
 		lightComponent.intensity = startingIntensity;
 	}
 

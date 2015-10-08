@@ -12,7 +12,9 @@ public class SpritePulsate : MonoBehaviour
 
 	void OnEnable ()
 	{
-		rend = gameObject.GetComponent<SpriteRenderer> ();
+		if (!rend) {
+			rend = gameObject.GetComponent<SpriteRenderer> ();			
+		}
 		InvokeRepeating ("SwapColors", frequency, frequency);
 	}
 

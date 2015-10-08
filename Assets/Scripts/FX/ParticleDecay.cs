@@ -7,7 +7,9 @@ public class ParticleDecay : MonoBehaviour
 
 	void OnEnable ()
 	{
-		particles = gameObject.GetComponent<ParticleSystem> ();
+		if (!particles) {
+			particles = gameObject.GetComponent<ParticleSystem> ();
+		}
 		particles.Play ();
 		Invoke ("Disable", particles.duration);
 	}
