@@ -8,7 +8,7 @@ public class Firing : MonoBehaviour
 	public float muzzleFlashOffset = 1.0f;
 	public float tripleMachineGunTimeout = 30;
 	public float tripleMachineGunTimer;
-	public float pauseAfterMachinegun = 3.0f;
+	public float machineGunPause = 3.0f;
 
 	void Update ()
 	{
@@ -30,6 +30,8 @@ public class Firing : MonoBehaviour
 	void TripleMachineGun ()
 	{
 		tripleMachineGunTimer = tripleMachineGunTimeout;
+		GameObject.Find ("GameController").SendMessage ("Ambush");
+		GameObject.Find ("GameController").SendMessage ("Pause", machineGunPause);
 	}
 
 	void Fire ()
@@ -38,7 +40,6 @@ public class Firing : MonoBehaviour
 			ShootBullet (30);
 			ShootBullet (5);
 			ShootBullet (30);
-			GameObject.Find ("GameController").SendMessage ("Pause", pauseAfterMachinegun);
 		} else {
 			ShootBullet (5);
 		}

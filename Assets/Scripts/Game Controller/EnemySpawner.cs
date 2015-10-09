@@ -27,6 +27,12 @@ public class EnemySpawner : MonoBehaviour
 		CancelInvoke ();
 		Invoke ("Resume", time);
 	}
+	
+	void Ambush ()
+	{
+		cameraPosition = Camera.main.transform.position;
+		Surround (20, 10);
+	}
 
 	void Resume ()
 	{
