@@ -29,6 +29,7 @@ public class Bomb : MonoBehaviour
 	void StartFiring ()
 	{
 		reloading = false;
+		CancelInvoke ();
 	}
 
 	void StopFiring ()
