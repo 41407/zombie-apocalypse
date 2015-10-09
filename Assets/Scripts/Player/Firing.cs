@@ -10,6 +10,11 @@ public class Firing : MonoBehaviour
 	public float tripleMachineGunTimer;
 	public float machineGunPause = 3.0f;
 
+	void OnEnable ()
+	{
+		StopFiring ();
+	}
+
 	void Update ()
 	{
 		if (tripleMachineGunTimer > 0) {

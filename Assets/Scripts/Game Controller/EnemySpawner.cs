@@ -46,7 +46,7 @@ public class EnemySpawner : MonoBehaviour
 			cameraPosition = Camera.main.transform.position;
 			if (GetComponent<SceneController> ().player) {
 				waveNumber++;
-				Arc (PlayerTravelDirection (), Random.Range (PlayerDirectionStagnation (), PlayerDirectionStagnation () * 2));
+				Arc (PlayerTravelDirection (), Mathf.Clamp(Random.Range (PlayerDirectionStagnation (), PlayerDirectionStagnation () * 2), 1, waveNumber));
 				RandomFormation ();
 				if (waveNumber > 10 && waveNumber < 20) {
 					enemySack.Push (EnemyType.Quick);

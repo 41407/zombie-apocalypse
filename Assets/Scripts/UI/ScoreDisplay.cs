@@ -18,7 +18,7 @@ public class ScoreDisplay : MonoBehaviour
 	private void UpdateData ()
 	{
 		int newScore = Score.GetScore ();
-		if (newScore > score) {
+		if (newScore > score && Score.IsViolent()) {
 			transform.localScale = transform.localScale + Vector3.one * (newScore - score);
 		}
 		score = newScore;

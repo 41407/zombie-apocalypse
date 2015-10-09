@@ -44,6 +44,7 @@ public class Bomb : MonoBehaviour
 
 	void Explode ()
 	{
+		GetComponent<PacifistScoring>().CancelInvoke();
 		Factory.create.ByReference (bomb, transform.position, transform.rotation);
 	}
 }
