@@ -108,8 +108,9 @@ public class EnemySpawner : MonoBehaviour
 	{
 		if (!direction.Equals (Vector2.zero)) {
 			Vector2 groupPosition = direction * Distance () + cameraPosition;
+			Vector2 normal = Quaternion.AngleAxis (90, Vector3.forward) * direction;
 			for (int i = 0; i < numberOfEnemies; i++) {
-				Spawn (groupPosition + Random.insideUnitCircle * 2.0f);
+				Spawn (groupPosition + Random.insideUnitCircle * 2.0f + normal * Random.Range (-12, 12));
 			}
 		}
 	}
