@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PacifistScoring : MonoBehaviour {
+public class PacifistScoring : MonoBehaviour
+{
 
 	public float pacifistScoreDelay = 5.0f;
 	public float pacifistScoreInterval = 0.25f;
@@ -9,7 +10,12 @@ public class PacifistScoring : MonoBehaviour {
 
 	void OnEnable ()
 	{
-		InvokeRepeating ("PacifistScore", pacifistScoreDelay, pacifistScoreInterval);
+		StartScoring ();
+	}
+
+	public void PlayerWasViolent ()
+	{
+		StartScoring ();
 	}
 
 	void StartFiring ()
@@ -19,12 +25,18 @@ public class PacifistScoring : MonoBehaviour {
 
 	void StopFiring ()
 	{
-		InvokeRepeating ("PacifistScore", pacifistScoreDelay, pacifistScoreInterval);
+		StartScoring ();
+	}
+
+	void StartScoring ()
+	{
 		pacifistScore = 1;
+		InvokeRepeating ("PacifistScore", pacifistScoreDelay, pacifistScoreInterval);
 	}
 
 	void PacifistScore ()
 	{
+		// This is absolutely magic numbered
 		Score.AddScore (pacifistScore, false);
 		if (Score.GetScore () % 13 == 0) {
 			pacifistScore++;
