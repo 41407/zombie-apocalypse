@@ -32,6 +32,7 @@ public class EnemySpawner : MonoBehaviour
 	{
 		cameraPosition = Camera.main.transform.position;
 		Surround (20, 10);
+		Explosive ();
 	}
 
 	void Resume ()
@@ -46,19 +47,23 @@ public class EnemySpawner : MonoBehaviour
 			cameraPosition = Camera.main.transform.position;
 			if (GetComponent<SceneController> ().player) {
 				waveNumber++;
-				Arc (PlayerTravelDirection (), Mathf.Clamp(Random.Range (PlayerDirectionStagnation (), PlayerDirectionStagnation () * 2), 1, waveNumber));
+				Arc (PlayerTravelDirection (), Mathf.Clamp (Random.Range (PlayerDirectionStagnation (), PlayerDirectionStagnation () * 2), 1, waveNumber));
 				RandomFormation ();
-				if (waveNumber > 10 && waveNumber < 20) {
+				if (waveNumber == 20) {
 					enemySack.Push (EnemyType.Quick);
 				}
-				if (waveNumber == 20) {
+				if (waveNumber == 30) {
 					enemySack.Push (EnemyType.Tough);
 				}
-				if (waveNumber > 50 && waveNumber < 60) {
+				if (waveNumber > 60 && waveNumber < 70) {
 					enemySack.Push (EnemyType.Stalking);
 					enemySack.Push (EnemyType.Quick);
 				}
-				if (waveNumber > 80 && waveNumber < 90) {
+				if (waveNumber > 90 && waveNumber < 100) {
+					enemySack.Push (EnemyType.Stalking);
+					enemySack.Push (EnemyType.Quick);
+				}
+				if (waveNumber > 100 && waveNumber < 110) {
 					enemySack.Push (EnemyType.Simple);
 				}
 				GeneratePowerup ();
@@ -68,7 +73,7 @@ public class EnemySpawner : MonoBehaviour
 
 	private void GeneratePowerup ()
 	{
-		if (!GameObject.FindGameObjectWithTag ("Power up") && waveNumber > 30 && player.GetComponent<Firing> ().tripleMachineGunTimer <= 1) {
+		if (!GameObject.FindGameObjectWithTag ("Power up") && waveNumber > 40 && player.GetComponent<Firing> ().tripleMachineGunTimer <= 1) {
 			Factory.create.Powerup (cameraPosition + RandomDirection () * Distance (60), Quaternion.identity);
 		}
 	}
@@ -82,9 +87,9 @@ public class EnemySpawner : MonoBehaviour
 			break;
 		case 1:
 			Surround (Random.Range (
-				Mathf.Clamp (waveNumber / 5,
+				Mathf.Clamp (waveNumber / 10,
 			             2, 10),
-				Mathf.Clamp (waveNumber / 3, 10, 60)),
+				Mathf.Clamp (waveNumber / 5, 10, 60)),
 			          Mathf.Clamp (waveNumber / 20,
 			             1, 5));
 			break;
@@ -125,7 +130,7 @@ public class EnemySpawner : MonoBehaviour
 			}
 		}
 	}
-
+	
 	private void Horde ()
 	{
 		Vector2 direction = PlayerTravelDirection ();
@@ -147,6 +152,13 @@ public class EnemySpawner : MonoBehaviour
 			}
 		}
 		hordeSize++;
+	}
+	
+	private void Explosive ()
+	{
+		Vector2 position = RandomDirection () * Distance (3) + cameraPosition;
+		Factory.create.ExplosiveEnemy (position, Quaternion.identity);
+	
 	}
 
 	private void Spawn (Vector2 position)
