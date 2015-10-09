@@ -8,6 +8,7 @@ public class Bomb : MonoBehaviour
 	public GameObject bomb;
 	private bool reloading = true;
 	public float pauseAfterUsing = 5.0f;
+	public float reloadSpamDelay = 0.5f;
 
 	void Update ()
 	{
@@ -20,7 +21,7 @@ public class Bomb : MonoBehaviour
 	{
 		if (bombTimer >= bombReloadTime) {
 			bombTimer = 0;
-			CreateExplosion ();
+			Explode ();
 			GameObject.Find ("GameController").SendMessage ("Pause", pauseAfterUsing);
 		}
 	}
@@ -32,10 +33,15 @@ public class Bomb : MonoBehaviour
 
 	void StopFiring ()
 	{
+		Invoke ("StartReloading", reloadSpamDelay);
+	}
+
+	void StartReloading ()
+	{
 		reloading = true;
 	}
 
-	void CreateExplosion ()
+	void Explode ()
 	{
 		Factory.create.ByReference (bomb, transform.position, transform.rotation);
 	}
