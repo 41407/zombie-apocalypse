@@ -29,4 +29,9 @@ public class SpritePulsate : MonoBehaviour
 		a = b;
 		b = c;
 	}
+
+	void OnDisable ()
+	{
+		CancelInvoke ();
+	}
 }
