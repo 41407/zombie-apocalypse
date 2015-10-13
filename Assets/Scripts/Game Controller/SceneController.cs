@@ -20,26 +20,31 @@ public class SceneController : MonoBehaviour
 			Invoke ("AnyKey", anyKeyToContinueTime);
 			playerIsAlive = false;
 		}
-		if (anyKey && (Input.anyKeyDown || Input.GetMouseButtonDown(0))) {
+		if (anyKey && (Input.anyKeyDown || Input.GetMouseButtonDown (0))) {
 			EndGame ();
 		}
 	}
 
 	private void PlayerDied ()
 	{
-		print ("Player died!");
 	}
 
-	private void EndGame ()
+	void EndGame ()
 	{
-		print ("Next scene.");
+		StartCoroutine (LoadNextLevel ());
+	}
+
+	IEnumerator LoadNextLevel ()
+	{
 		if (resetScoreOnLevelEnd) {
 			if (Score.GetScore () > PlayerPrefs.GetInt ("High score")) {
 				PlayerPrefs.SetInt ("High score", Score.GetScore ());
 			}
 			Score.Reset ();
 		}
-		Application.LoadLevelAsync (nextLevel);
+		AsyncOperation async = Application.LoadLevelAsync (nextLevel);
+		Debug.Log ("Loading next scene.");
+		yield return async;
 	}
 
 	private void AnyKey ()

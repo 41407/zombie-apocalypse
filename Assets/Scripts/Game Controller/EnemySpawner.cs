@@ -5,10 +5,12 @@ using System.Collections.Generic;
 public class EnemySpawner : MonoBehaviour
 {
 	public GameObject player;
-	public int hordeSize;
-	public float spawnInterval = 0.75f;
+	private int hordeSize = 11;
 	public float minimumDistanceFromPlayer = 5.0f;
 	public float distanceVariance = 5.0f;
+	public float spawnInterval = 0.75f;
+	public int pauseInterval = 30;
+	public float pauseDuration = 2.0f;
 	public int waveNumber = 0;
 	private Vector2 cameraPosition;
 	public List<GameObject> enemyTypes;
@@ -43,12 +45,16 @@ public class EnemySpawner : MonoBehaviour
 
 	private void GenerateEnemies ()
 	{
+		Debug.Log ("Wave " + waveNumber, this);
 		if (!paused) {
 			cameraPosition = Camera.main.transform.position;
 			if (GetComponent<SceneController> ().player) {
 				waveNumber++;
 				Arc (PlayerTravelDirection (), Mathf.Clamp (Random.Range (PlayerDirectionStagnation (), PlayerDirectionStagnation () * 2), 1, waveNumber));
 				RandomFormation ();
+				if (waveNumber % pauseInterval == 0) {
+					Pause (pauseDuration);
+				}
 				if (waveNumber == 20) {
 					enemySack.Push (EnemyType.Quick);
 				}
@@ -80,7 +86,7 @@ public class EnemySpawner : MonoBehaviour
 
 	private void RandomFormation ()
 	{
-		int formation = Random.Range (0, 10);
+		int formation = Random.Range (0, 6);
 		switch (formation) {
 		case 0:
 			Horde ();
@@ -139,8 +145,8 @@ public class EnemySpawner : MonoBehaviour
 		}
 		Vector2 groupPosition = direction * Distance (5) + cameraPosition;
 		bool specialHorde = false;
-		EnemyType specialType = (EnemyType)Random.Range (0, 3);
-		if (waveNumber > 50 & Random.value < 0.25f) {
+		EnemyType specialType = (EnemyType)Random.Range (0, 4);
+		if (waveNumber > 50 & Random.value < 0.75f) {
 			specialHorde = true;
 			Factory.create.ExplosiveEnemy (groupPosition, Quaternion.identity);
 		}
