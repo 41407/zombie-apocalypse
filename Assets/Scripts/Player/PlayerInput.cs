@@ -29,7 +29,7 @@ public class PlayerInput : MonoBehaviour
 	void Movement ()
 	{	
 		Vector2 input = new Vector2 (Input.GetAxisRaw ("Horizontal"), Input.GetAxisRaw ("Vertical"));
-		body.AddForce (input * currentAcceleration);
+		body.AddForce (input * currentAcceleration * Time.deltaTime);
 	}
 
 	void Firing ()
