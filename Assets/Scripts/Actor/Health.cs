@@ -49,8 +49,7 @@ public class Health : MonoBehaviour
 				ObjectPool.pool.Pull (explosion, transform.position, transform.rotation).SetActive (true);
 			}
 			if (onDeathDecal) {
-				// Position is magic numbered for this particular application!
-				ObjectPool.pool.Pull (onDeathDecal, transform.position + Vector3.forward, transform.rotation).SetActive (true);
+				ObjectPool.pool.Pull (onDeathDecal, transform.position, transform.rotation).SetActive (true);
 			}
 			if (screenShakeOnDeath > 0) {
 				Camera.main.SendMessage ("Shake", screenShakeOnDeath);
