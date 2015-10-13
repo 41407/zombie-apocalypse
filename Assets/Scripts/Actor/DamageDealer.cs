@@ -11,7 +11,7 @@ public class DamageDealer : MonoBehaviour
 
 	void OnCollisionEnter2D (Collision2D col)
 	{
-		if (tags.Equals(col.gameObject.tag)) {
+		if (tags.Contains(col.gameObject.tag)) {
 			col.gameObject.SendMessage ("TakeDamage", (Mathf.Max (damage + Random.Range (-variance, variance), 1)));
 		}
 		if (impactParticle) {

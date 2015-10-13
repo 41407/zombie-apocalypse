@@ -93,10 +93,11 @@ public class EnemySpawner : MonoBehaviour
 			break;
 		case 1:
 			Surround (Random.Range (
-				Mathf.Clamp (waveNumber / 10,
-			             2, 10),
-				Mathf.Clamp (waveNumber / 5, 10, 60)),
-			          Mathf.Clamp (waveNumber / 20,
+					Mathf.Clamp (waveNumber / 20,
+				             2, 10),
+					Mathf.Clamp (waveNumber / 10,
+			             10, 60)),
+			    Mathf.Clamp (waveNumber / 20,
 			             1, 5));
 			break;
 		case 2:
@@ -108,7 +109,7 @@ public class EnemySpawner : MonoBehaviour
 		default:
 			Surround (
 				Random.Range (1,
-			              Mathf.Clamp (waveNumber / 5,
+			              Mathf.Clamp (waveNumber / 9,
 			             1, 30)),
 				1);
 			break;
@@ -148,7 +149,9 @@ public class EnemySpawner : MonoBehaviour
 		EnemyType specialType = (EnemyType)Random.Range (0, 4);
 		if (waveNumber > 50 & Random.value < 0.75f) {
 			specialHorde = true;
-			Factory.create.ExplosiveEnemy (groupPosition, Quaternion.identity);
+			if (GameObject.FindGameObjectsWithTag ("Explosive Enemy").Length < 1) {
+				Factory.create.ExplosiveEnemy (groupPosition, Quaternion.identity);
+			}
 		}
 		for (int j = 0; j < hordeSize; j++) {
 			if (specialHorde) {
