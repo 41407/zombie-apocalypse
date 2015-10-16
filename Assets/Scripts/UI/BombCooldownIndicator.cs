@@ -3,6 +3,7 @@ using System.Collections;
 
 public class BombCooldownIndicator : MonoBehaviour
 {
+	private AudioSource aud;
 	public GameObject player;
 	private Bomb bombScript;
 	private ParticleSystem particles;
@@ -11,6 +12,7 @@ public class BombCooldownIndicator : MonoBehaviour
 
 	void OnEnable ()
 	{
+		aud = GetComponent<AudioSource> ();
 		bombScript = player.GetComponent<Bomb> ();
 		particles = gameObject.GetComponent<ParticleSystem> ();
 	}
@@ -22,6 +24,7 @@ public class BombCooldownIndicator : MonoBehaviour
 		if (bombScript.bombTimer == bombScript.bombReloadTime && bombReady == false) {
 			bombReady = true;
 			particles.Play ();
+			aud.Play ();
 		}
 		if (bombScript.bombTimer < 0.1f) {
 			bombReady = false;
