@@ -10,6 +10,7 @@ public class Stalker : MonoBehaviour
 	private CircleCollider2D trigger;
 	private Rigidbody2D body;
 	private TrailRenderer trail;
+	private AudioSource aud;
 
 	void OnEnable ()
 	{
@@ -21,6 +22,9 @@ public class Stalker : MonoBehaviour
 		}
 		if (!trail) {
 			trail = gameObject.GetComponent<TrailRenderer> ();
+		}
+		if (!aud) {
+			aud = GetComponent<AudioSource> ();
 		}
 	}
 
@@ -55,6 +59,7 @@ public class Stalker : MonoBehaviour
 	{
 		body.AddForce (transform.rotation * Vector2.up * chargeSpeed);
 		trail.enabled = true;
+		aud.Play ();
 	}
 
 	private void CancelCooldown ()

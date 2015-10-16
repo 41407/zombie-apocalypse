@@ -7,14 +7,17 @@ public class RandomAudioClip : MonoBehaviour
 	private AudioSource source;
 	public float pitchMin = 1f;
 	public float pitchMax = 1f;
+	public bool playOnEnable = true;
 
 	void OnEnable ()
 	{
-		if(!source) {
+		if (!source) {
 			source = gameObject.GetComponent<AudioSource> ();
 		}
 		source.clip = clips [Random.Range (0, clips.Length)];
 		source.pitch = Random.Range (pitchMin, pitchMax);
-		source.Play ();
+		if (playOnEnable) {
+			source.Play ();
+		}
 	}
 }
