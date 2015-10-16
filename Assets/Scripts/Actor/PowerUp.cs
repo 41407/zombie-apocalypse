@@ -13,18 +13,14 @@ public class PowerUp : MonoBehaviour
 			Factory.create.ByReference (spawnEffect, transform.position, transform.rotation);
 		}
 	}
-	
-	void OnDisable ()
-	{
-		if (pickupEffect) {
-			Factory.create.ByReference (pickupEffect, transform.position, transform.rotation);
-		}
-	}
 
 	void OnCollisionEnter2D (Collision2D col)
 	{
 		if (col.gameObject.tag.Equals ("Player")) {
 			col.gameObject.SendMessage (powerup, SendMessageOptions.DontRequireReceiver);
+			if (pickupEffect) {
+				Factory.create.ByReference (pickupEffect, transform.position, transform.rotation);
+			}
 			gameObject.SetActive (false);
 		}
 	}
