@@ -5,6 +5,7 @@ public class ShakeOnDemand : MonoBehaviour
 {
 	private float currentMagnitude = 0;
 	public float damping = 0.5f;
+	public float limit = 4.0f;
 
 	void Update ()
 	{
@@ -13,7 +14,7 @@ public class ShakeOnDemand : MonoBehaviour
 		}
 		if (currentMagnitude > 0) {
 			transform.position = (Vector3)transform.position + (Vector3)(Vector2)Random.insideUnitCircle * currentMagnitude;
-			currentMagnitude *= damping;
+			currentMagnitude = Mathf.Clamp(Mathf.Lerp(currentMagnitude, 0, damping), 0, limit);
 		}
 	}
 
