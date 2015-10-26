@@ -61,7 +61,7 @@ public class EnemySpawner : MonoBehaviour
 				if (waveNumber == 30) {
 					enemySack.Push (EnemyType.Tough);
 				}
-				if (waveNumber > 60 && waveNumber < 70) {
+				if (waveNumber > 60 && waveNumber < 65) {
 					enemySack.Push (EnemyType.Stalking);
 					enemySack.Push (EnemyType.Simple);
 				}
@@ -83,7 +83,8 @@ public class EnemySpawner : MonoBehaviour
 	private void GeneratePowerup ()
 	{
 		if (!GameObject.FindGameObjectWithTag ("Power up") && waveNumber > 40 && player.GetComponent<Firing> ().tripleMachineGunTimer <= 1) {
-			Factory.create.Powerup (cameraPosition + RandomDirection () * Distance (60), Quaternion.identity);
+			float spawnDistance = Mathf.Clamp((waveNumber - 40) * 1.5f, 0, 80);
+			Factory.create.Powerup (cameraPosition + RandomDirection () * Distance (spawnDistance), Quaternion.identity);
 		}
 	}
 
