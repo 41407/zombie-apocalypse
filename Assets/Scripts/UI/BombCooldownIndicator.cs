@@ -10,11 +10,11 @@ public class BombCooldownIndicator : MonoBehaviour
 	public float startingAngle = 120f;
 	private bool bombReady = false;
 
-	void OnEnable ()
+	void Awake ()
 	{
 		aud = GetComponent<AudioSource> ();
 		bombScript = player.GetComponent<Bomb> ();
-		particles = gameObject.GetComponent<ParticleSystem> ();
+		particles = GetComponent<ParticleSystem> ();
 	}
 	
 	void Update ()

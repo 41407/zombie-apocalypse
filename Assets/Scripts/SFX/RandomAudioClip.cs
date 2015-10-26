@@ -9,11 +9,13 @@ public class RandomAudioClip : MonoBehaviour
 	public float pitchMax = 1f;
 	public bool playOnEnable = true;
 
+	void Awake ()
+	{
+		source = GetComponent<AudioSource> ();
+	}
+
 	void OnEnable ()
 	{
-		if (!source) {
-			source = gameObject.GetComponent<AudioSource> ();
-		}
 		source.clip = clips [Random.Range (0, clips.Length)];
 		source.pitch = Random.Range (pitchMin, pitchMax);
 		if (playOnEnable) {

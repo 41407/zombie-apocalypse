@@ -12,20 +12,12 @@ public class Stalker : MonoBehaviour
 	private TrailRenderer trail;
 	private AudioSource aud;
 
-	void OnEnable ()
+	void Awake ()
 	{
-		if (!trigger) {
-			trigger = gameObject.GetComponent<CircleCollider2D> ();
-		}
-		if (!body) {
-			body = gameObject.GetComponent<Rigidbody2D> ();
-		}
-		if (!trail) {
-			trail = gameObject.GetComponent<TrailRenderer> ();
-		}
-		if (!aud) {
-			aud = GetComponent<AudioSource> ();
-		}
+		trigger = GetComponent<CircleCollider2D> ();
+		body = GetComponent<Rigidbody2D> ();
+		trail = GetComponent<TrailRenderer> ();
+		aud = GetComponent<AudioSource> ();
 	}
 
 	void OnBecameVisible ()

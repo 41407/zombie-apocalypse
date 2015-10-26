@@ -14,7 +14,7 @@ public class Health : MonoBehaviour
 	public float screenShakeOnDeath = 0.1f;
 	public float screenShakeOnDamage = 0f;
 
-	void OnEnable ()
+	void Awake ()
 	{
 		if (explosion) {
 			ObjectPool.pool.Initialize (explosion);
@@ -22,6 +22,10 @@ public class Health : MonoBehaviour
 		if (tookDamage) {
 			ObjectPool.pool.Initialize (tookDamage);
 		}
+	}
+
+	void OnEnable ()
+	{
 		health = Mathf.Max (1, health + Random.Range (-healthVariance, healthVariance));
 		currentHealth = health;
 	}

@@ -7,11 +7,13 @@ public class LightFade : MonoBehaviour
 	public float fadeSpeed;
 	public float startingIntensity = 1.00f;
 
+	void Awake ()
+	{
+		lightComponent = gameObject.GetComponent<Light> ();
+	}
+
 	void OnEnable ()
 	{
-		if (!lightComponent) {
-			lightComponent = gameObject.GetComponent<Light> ();
-		}
 		lightComponent.intensity = startingIntensity;
 	}
 

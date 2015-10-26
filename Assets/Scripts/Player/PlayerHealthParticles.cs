@@ -14,7 +14,7 @@ public class PlayerHealthParticles : MonoBehaviour
 	void OnEnable ()
 	{
 		flameColor = new Color (1, 1, 0);
-		particles = gameObject.GetComponent<ParticleSystem> ();
+		particles = GetComponent<ParticleSystem> ();
 		health = transform.parent.GetComponent<PlayerHealth> ();
 	}
 

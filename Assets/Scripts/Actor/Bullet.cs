@@ -7,11 +7,13 @@ public class Bullet : MonoBehaviour
 	public GameObject trailParticle;
 	private Rigidbody2D body;
 
+	void Awake ()
+	{
+		body = GetComponent<Rigidbody2D> ();
+	}
+
 	void OnEnable ()
 	{
-		if (!body) {
-			body = GetComponent<Rigidbody2D> ();
-		}
 		body.AddForce (transform.rotation * Vector3.up * speed);
 	}
 

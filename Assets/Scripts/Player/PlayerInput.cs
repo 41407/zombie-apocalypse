@@ -11,11 +11,14 @@ public class PlayerInput : MonoBehaviour
 	public float finalAcceleration = 100.0f;
 	private Rigidbody2D body;
 
+	void Awake ()
+	{
+		body = GetComponent<Rigidbody2D> ();	
+
+	}
+
 	void OnEnable ()
 	{
-		if (!body){
-			body = gameObject.GetComponent<Rigidbody2D> ();	
-		}
 		currentAcceleration = acceleration;
 		InvokeRepeating ("Speedup", speedupStartTime, 1.0f);
 	}

@@ -5,11 +5,13 @@ public class ParticleDecay : MonoBehaviour
 {
 	private ParticleSystem particles;
 
+	void Awake ()
+	{
+		particles = gameObject.GetComponent<ParticleSystem> ();
+	}
+
 	void OnEnable ()
 	{
-		if (!particles) {
-			particles = gameObject.GetComponent<ParticleSystem> ();
-		}
 		particles.Play ();
 		Invoke ("Disable", particles.duration);
 	}

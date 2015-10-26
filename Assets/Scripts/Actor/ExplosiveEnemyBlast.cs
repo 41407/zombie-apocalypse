@@ -5,11 +5,13 @@ public class ExplosiveEnemyBlast : MonoBehaviour
 {
 	private CircleCollider2D blastCollider;
 
+	void Awake ()
+	{
+		blastCollider = GetComponent<CircleCollider2D> ();
+	}
+
 	void OnEnable ()
 	{
-		if (!blastCollider) {
-			blastCollider = gameObject.GetComponent<CircleCollider2D> ();
-		}
 		blastCollider.enabled = true;
 		Invoke ("DisableCollider", 0.1f);
 	}

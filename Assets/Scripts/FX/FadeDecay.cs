@@ -8,11 +8,13 @@ public class FadeDecay : MonoBehaviour
 	private bool outOfLOS;
 	private Renderer rend;
 
+	void Awake ()
+	{
+		rend = GetComponent<Renderer> ();
+	}
+
 	void OnEnable ()
 	{
-		if (!rend) {
-			rend = GetComponent<Renderer>();
-		}
 		SetAlpha (initialAlpha);
 	}
 

@@ -15,7 +15,7 @@ public class TrailDecay : MonoBehaviour
 		
 	void Awake ()
 	{
-		trail = gameObject.GetComponent<TrailRenderer> ();
+		trail = GetComponent<TrailRenderer> ();
 		if (!trail) {
 			Debug.LogError ("[TrailRendererHelper.Awake] invalid TrailRenderer.");
 			return;
