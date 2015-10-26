@@ -63,10 +63,13 @@ public class EnemySpawner : MonoBehaviour
 				}
 				if (waveNumber > 60 && waveNumber < 70) {
 					enemySack.Push (EnemyType.Stalking);
+					enemySack.Push (EnemyType.Simple);
+				}
+				if (waveNumber > 90 && waveNumber < 95) {
+					enemySack.Push (EnemyType.Stalking);
 					enemySack.Push (EnemyType.Quick);
 				}
-				if (waveNumber > 90 && waveNumber < 100) {
-					enemySack.Push (EnemyType.Stalking);
+				if (waveNumber > 95 && waveNumber < 100) {
 					enemySack.Push (EnemyType.Quick);
 				}
 				if (waveNumber > 100 && waveNumber < 110) {
@@ -97,7 +100,7 @@ public class EnemySpawner : MonoBehaviour
 				             2, 10),
 					Mathf.Clamp (waveNumber / 10,
 			             10, 60)),
-			    Mathf.Clamp (waveNumber / 20,
+			    Mathf.Clamp (waveNumber / 40,
 			             1, 5));
 			break;
 		case 2:
@@ -128,7 +131,7 @@ public class EnemySpawner : MonoBehaviour
 	}
 
 	private void Surround (int numberOfGroups, int enemiesInEachGroup)
-	{
+	{	
 		Vector2 groupPosition;
 		for (int i = 0; i < numberOfGroups; i++) {
 			groupPosition = RandomDirection () * Distance (3) + cameraPosition;
